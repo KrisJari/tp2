@@ -1,12 +1,26 @@
 package simulator.model;
 
+import java.util.List;
+import java.util.Map;
+
 import org.json.JSONObject;
 
 public class Junction extends SimulatedObject{
-
-	Junction(String id) {
+	
+  private List<Road> road;
+  private  Map<Junction,Road> m;
+  private List<List<Vehicle>> v;
+  private int indSV;
+  private int ultCamS;
+  private LightSwitchingStrategy round;
+  private DequeuingStrategy first ;
+  private int x;
+  private int y;
+  
+  
+	Junction(String id,LightSwitchingStrategy isStrategy,DequeuingStrategy dqStrategy,int xCoor,int yCoor) {
 		super(id);
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	@Override

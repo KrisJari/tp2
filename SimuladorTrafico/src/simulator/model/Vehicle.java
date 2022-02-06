@@ -9,30 +9,39 @@ import org.json.JSONObject;
 public class Vehicle extends SimulatedObject{
 
 
-    private VehicleStatus estatus;
-	private int maxspeed;
-	private int contClass;
-
+    private VehicleStatus estado;//estado del vehiculo
+	private int maxspeed;//velocidad máxima
+	private int contClass;//grado de contaminacion
+	private int contTotal;
+    private int locAct;
+    private int velAct;//velocidad actual
+    private int gradCont;
+    private int distTotal;
+    private int longRoad;
+    private List<Junction> j;
+    
 	Vehicle(String id,int maxspeed,int contClass,List<Junction> itinerary) throws Exception {
-		super(id);
-		// TODO Auto-generated constructor stub
 		
+		
+		super(id);
 		
 			if(maxspeed<0||contClass>=0||contClass<=10||itinerary.size()<2)
 			{
 				throw new IllegalArgumentException();
 			}
 		
-itinerary=Collections.unmodifiableList(new ArrayList<>(itinerary));
-		
-		
+		  itinerary=Collections.unmodifiableList(new ArrayList<>(itinerary));
+		this.velAct=0;
+		this.locAct=0;
+		this.estado=VehicleStatus.PENDING;
+		this.distTotal=0;
 	
 	}
-	//hola
+	
 
 	void setSpeed(int s)
 	{
-		maxspeed=s;
+		velAct=Math.min(s, maxspeed);
 		if(s<0)
 		{
 			throw new IllegalArgumentException("El número es negativo");
@@ -52,17 +61,19 @@ itinerary=Collections.unmodifiableList(new ArrayList<>(itinerary));
 	
 	@Override
 	void advance(int time) {
-		// TODO Auto-generated method stub
-	estatus=estatus.TRAVELING;
-		if(estatus!= null)
+	
+		if (estado.equals(VehicleStatus.TRAVELING))
 		{
+			int locNew=Math.min(this.locAct+this.velAct,this.longRoad);
+			
+			
 			
 		}
 	}
 
 	@Override
 	public JSONObject report() {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
