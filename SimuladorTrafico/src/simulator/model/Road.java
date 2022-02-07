@@ -47,8 +47,9 @@ public abstract class Road extends SimulatedObject
 		}
 	}
 void enter(Vehicle v)
-{//a�adir vehicuo a la lista
-	
+{//a�adir vehiculo a la lista
+	vehicles.add(v);
+
 }
 void exit(Vehicle v)
 {
