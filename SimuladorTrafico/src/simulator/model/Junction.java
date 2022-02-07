@@ -20,7 +20,7 @@ public class Junction extends SimulatedObject{
   
 	Junction(String id,LightSwitchingStrategy isStrategy,DequeuingStrategy dqStrategy,int xCoor,int yCoor) {
 		super(id);
-		
+		//hole
 	}
 
 	@Override
