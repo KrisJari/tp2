@@ -15,8 +15,9 @@ public class Vehicle extends SimulatedObject{
 	private int contTotal;
     private int locAct;
     private int velAct;//velocidad actual
-    private int gradCont;//grado de contaminación
+    private int gradCont;//grado de contaminación o etiqueta
     private int distTotal;
+	private Road carretera;
     private Road longRoad;
     private List<Junction> j;
     
@@ -33,8 +34,11 @@ public class Vehicle extends SimulatedObject{
 		  itinerary=Collections.unmodifiableList(new ArrayList<>(itinerary));
 		this.velAct=0;
 		this.locAct=0;
+		if(velAct==0){
 		this.estado=VehicleStatus.PENDING;
+		}
 		this.distTotal=0;
+	    this.carretera=null;
 	
 	}
 	
@@ -87,7 +91,16 @@ public class Vehicle extends SimulatedObject{
 		  obj.put("speed:",getSpeed());
 		  obj.put("distance:",getTotalDistance());
 		  obj.put("co2:",getTotalCO2());
-          obj.put();
+          obj.put("class:",getGradCont());
+		  obj.put("status",getStatus());
+		  
+
+       if(estado.equals(VehicleStatus.PENDING)||estado.equals(VehicleStatus.ARRIVED))
+      {
+          obj.put("road:",getCarretera());
+		  obj.put("location:",getLocation());
+        }
+
 		return null;
 	}
     //getters
@@ -106,5 +119,21 @@ public class Vehicle extends SimulatedObject{
 	public int getTotalCO2()
 	{
 		return contTotal;
+	}
+	public int getGradCont()
+	{
+		return gradCont;
+	}
+	public int getStatus()
+	{
+		return estado;
+	}
+	public Road getCarretera()
+	{
+		return carretera;
+	}
+	public int getLocation()
+	{
+		return locAct;
 	}
 }
