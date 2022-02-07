@@ -6,10 +6,10 @@ import org.json.JSONObject;
 
 public abstract class Road extends SimulatedObject{
 	
-	private int longitud=0;
-	Junction srcJunc;
-	Junction destJunc;
-	private int velMax=0;
+	private int longRoad;//longitud de carretera
+	Junction srcJunc;//cruce origen
+	Junction destJunc;//cruce destino
+	private int velMax;
 	private int limitVel;
 	private int alarmContEx;
 	private Weather condAmb;
@@ -20,10 +20,11 @@ public abstract class Road extends SimulatedObject{
 		super(id);
 	
 		this.condAmb=weather;
+		this.limitVel=velMax;
 		
 	}
 void enter(Vehicle v)
-{//añadir vehicuo a la lista
+{//aï¿½adir vehicuo a la lista
 	
 }
 void exit(Vehicle v)
@@ -64,6 +65,9 @@ int calculateVehicleSpeed(Vehicle v)
 	}
 //getters y setter publicos 
 	
-	
+	public int getLongRoad()
+	{
+		return longRoad;
+	}
 	
 }

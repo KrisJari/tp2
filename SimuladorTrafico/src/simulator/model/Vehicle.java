@@ -10,14 +10,14 @@ public class Vehicle extends SimulatedObject{
 
 
     private VehicleStatus estado;//estado del vehiculo
-	private int maxspeed;//velocidad máxima
+	private int maxspeed;//velocidad mï¿½xima
 	private int contClass;//grado de contaminacion
 	private int contTotal;
     private int locAct;
     private int velAct;//velocidad actual
-    private int gradCont;
+    private int gradCont;//grado de contaminaciÃ³n
     private int distTotal;
-    private int longRoad;
+    private Road longRoad;
     private List<Junction> j;
     
 	Vehicle(String id,int maxspeed,int contClass,List<Junction> itinerary) throws Exception {
@@ -44,7 +44,7 @@ public class Vehicle extends SimulatedObject{
 		velAct=Math.min(s, maxspeed);
 		if(s<0)
 		{
-			throw new IllegalArgumentException("El número es negativo");
+			throw new IllegalArgumentException("El nï¿½mero es negativo");
 		}
 	}
 	
@@ -53,7 +53,7 @@ public class Vehicle extends SimulatedObject{
 		contClass=c;
 		if(contClass>=0||contClass<=10)
 		{
-			throw new IllegalArgumentException("El número no está entre 0 y 10");
+			throw new IllegalArgumentException("El nï¿½mero no estï¿½ entre 0 y 10");
 		
 		}
 	}
@@ -64,9 +64,15 @@ public class Vehicle extends SimulatedObject{
 	
 		if (estado.equals(VehicleStatus.TRAVELING))
 		{
-			int locNew=Math.min(this.locAct+this.velAct,this.longRoad);
+			int locNew=Math.min(this.locAct+this.velAct,this.longRoad.getLongRoad());
+			int loc=locNew-locAct;
+			int contaminacion=this.gradCont*loc;
 			
-			
+			contaminacion=this.contTotal;
+			addContamination(contaminacion);
+		}
+		if(this.locNew>=this.longRoad.getLongRoad())
+		{
 			
 		}
 	}
