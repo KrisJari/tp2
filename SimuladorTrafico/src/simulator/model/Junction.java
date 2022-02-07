@@ -22,7 +22,10 @@ public class Junction extends SimulatedObject{
 		super(id);
 		
 	}
+    void enter(Vehicle v)
+	{
 
+	}
 	@Override
 	void advance(int time) {
 		// TODO Auto-generated method stub

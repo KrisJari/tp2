@@ -61,7 +61,7 @@ public class Vehicle extends SimulatedObject{
 	
 	@Override
 	void advance(int time) {
-	
+	 
 		if (estado.equals(VehicleStatus.TRAVELING))
 		{
 			int locNew=Math.min(this.locAct+this.velAct,this.longRoad.getLongRoad());
@@ -70,17 +70,41 @@ public class Vehicle extends SimulatedObject{
 			
 			contaminacion=this.contTotal;
 			addContamination(contaminacion);
+
+			if(locNew>=this.longRoad.getLongRoad())
+		   {
+                 enter(this);
+				 this.estado=VehicleStatus.WAITING;
+		    }
 		}
-		if(this.locNew>=this.longRoad.getLongRoad())
-		{
-			
-		}
+		
 	}
 
 	@Override
 	public JSONObject report() {
-		
+		JSONObject obj=new JSONObject();
+          obj.put("id:",getId());
+		  obj.put("speed:",getSpeed());
+		  obj.put("distance:",getTotalDistance());
+		  obj.put("co2:",getTotalCO2());
+          obj.put();
 		return null;
 	}
-
+    //getters
+	public int getId()
+	{
+		return id;
+	}
+	public int getSpeed()
+	{
+		return velAct;
+	}
+	public int getTotalDistance()
+	{
+		return distTotal;
+	}
+	public int getTotalCO2()
+	{
+		return contTotal;
+	}
 }
