@@ -71,10 +71,10 @@ public class Vehicle extends SimulatedObject{
 		{
 			int locNew=Math.min(locAct+velAct,road.getLongRoad());
 			int loc=locNew-locAct;
-			int contaminacion=gradCont*loc;
+			int c=gradCont*loc;
 			
-			contaminacion=contTotal;
-			 road.addContamination(contaminacion);
+			c=contTotal;
+			 road.addContamination(c);
 
 			if(locNew>=longRoad.getLongRoad())
 		   {
@@ -102,7 +102,7 @@ public class Vehicle extends SimulatedObject{
 		  obj.put("location:",getLocation());
         }
 
-		return null;
+		return obj;
 	}
     //getters
 	

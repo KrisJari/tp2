@@ -67,13 +67,13 @@ void updateSpeedLimit()
 {
 	
 }
-public void addContamination(int contaminacion) {
+public void addContamination(int c) {
 		if
-		(contaminacion<0)
+		(c<0)
 	{
 		throw new IllegalArgumentException();
 	}
-	contaminacion=ContTotal;
+	c=ContTotal;
     }
 
 int calculateVehicleSpeed(Vehicle v)
