@@ -17,10 +17,11 @@ public class Vehicle extends SimulatedObject{
     private int velAct;//velocidad actual
     private int gradCont;//grado de contaminación o etiqueta
     private int distTotal;
-	private Road carretera;
+	private Road road;
     private Road longRoad;
     private List<Junction> j;
-    
+    private Junction junct;
+
 	Vehicle(String id,int maxspeed,int contClass,List<Junction> itinerary) throws Exception {
 		
 		
@@ -38,7 +39,7 @@ public class Vehicle extends SimulatedObject{
 		this.estado=VehicleStatus.PENDING;
 		}
 		this.distTotal=0;
-	    this.carretera=null;
+	    this.road=null;
 	
 	}
 	
@@ -68,17 +69,17 @@ public class Vehicle extends SimulatedObject{
 	 
 		if (estado.equals(VehicleStatus.TRAVELING))
 		{
-			int locNew=Math.min(this.locAct+this.velAct,this.longRoad.getLongRoad());
+			int locNew=Math.min(locAct+velAct,road.getLongRoad());
 			int loc=locNew-locAct;
-			int contaminacion=this.gradCont*loc;
+			int contaminacion=gradCont*loc;
 			
-			contaminacion=this.contTotal;
-			addContamination(contaminacion);
+			contaminacion=contTotal;
+			road.addContamination(contaminacion);
 
-			if(locNew>=this.longRoad.getLongRoad())
+			if(locNew>=longRoad.getLongRoad())
 		   {
-                 enter(this);
-				 this.estado=VehicleStatus.WAITING;
+                 junct.enter(this);
+				 estado=VehicleStatus.WAITING;
 		    }
 		}
 		
@@ -87,7 +88,7 @@ public class Vehicle extends SimulatedObject{
 	@Override
 	public JSONObject report() {
 		JSONObject obj=new JSONObject();
-          obj.put("id:",getId());
+          obj.put("id:",_id);
 		  obj.put("speed:",getSpeed());
 		  obj.put("distance:",getTotalDistance());
 		  obj.put("co2:",getTotalCO2());
@@ -104,10 +105,7 @@ public class Vehicle extends SimulatedObject{
 		return null;
 	}
     //getters
-	public int getId()
-	{
-		return id;
-	}
+	
 	public int getSpeed()
 	{
 		return velAct;
@@ -124,13 +122,13 @@ public class Vehicle extends SimulatedObject{
 	{
 		return gradCont;
 	}
-	public int getStatus()
+	public VehicleStatus getStatus()
 	{
 		return estado;
 	}
 	public Road getCarretera()
 	{
-		return carretera;
+		return road;
 	}
 	public int getLocation()
 	{
