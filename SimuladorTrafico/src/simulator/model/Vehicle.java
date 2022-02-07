@@ -74,7 +74,7 @@ public class Vehicle extends SimulatedObject{
 			int contaminacion=gradCont*loc;
 			
 			contaminacion=contTotal;
-			road.addContamination(contaminacion);
+			 road.addContamination(contaminacion);
 
 			if(locNew>=longRoad.getLongRoad())
 		   {

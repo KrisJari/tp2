@@ -6,7 +6,8 @@ import java.util.List;
 
 import org.json.JSONObject;
 
-public abstract class Road extends SimulatedObject{
+public abstract class Road extends SimulatedObject
+{
 	
 	private int longRoad;//longitud de carretera
 	Junction srcJunc;//cruce origen
@@ -44,7 +45,7 @@ public abstract class Road extends SimulatedObject{
 				return 1;
 			}
 		}
-
+	}
 void enter(Vehicle v)
 {//a�adir vehicuo a la lista
 	
@@ -57,10 +58,7 @@ void setWeather(Weather w)
 {
 	
 }
-void addContamination(int c)
-{
-	
-}
+
 void reduceTotalContamination()
 {
 	
@@ -69,6 +67,15 @@ void updateSpeedLimit()
 {
 	
 }
+public void addContamination(int contaminacion) {
+		if
+		(contaminacion<0)
+	{
+		throw new IllegalArgumentException();
+	}
+	contaminacion=ContTotal;
+    }
+
 int calculateVehicleSpeed(Vehicle v)
 {
 	return ContTotal;
@@ -91,5 +98,8 @@ int calculateVehicleSpeed(Vehicle v)
 	{
 		return longRoad;
 	}
-
+	
 }
+	
+
+    
