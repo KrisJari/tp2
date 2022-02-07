@@ -15,6 +15,8 @@ public abstract class Road extends SimulatedObject{
 	private Weather condAmb;
 	private int ContTotal;
 	private List<Vehicle> vehicles; 
+	
+	//hola
 
 	Road(String id,Junction srcJunct,Junction destJunc,int maxspeed,int contLimit,int length,Weather weather ) {
 		super(id);
