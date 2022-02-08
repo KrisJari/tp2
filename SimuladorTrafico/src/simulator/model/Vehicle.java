@@ -84,6 +84,17 @@ public class Vehicle extends SimulatedObject{
 		}
 		
 	}
+	
+	protected void moveToNextRoad() throws VehicleException {
+		this.locAct = 0;
+		this.velAct = 0;
+		if (!this.estado.equals(VehicleStatus.PENDING) && !this.estado.equals(VehicleStatus.WAITING))
+			throw new VehicleException("Illegal status");
+		
+		if (this.estado.equals(VehicleStatus.PENDING)) {
+			this.estado = VehicleStatus.TRAVELING;
+		}
+	}
 
 	@Override
 	public JSONObject report() {
