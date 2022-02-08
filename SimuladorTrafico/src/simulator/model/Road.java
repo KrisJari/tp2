@@ -46,46 +46,40 @@ public abstract class Road extends SimulatedObject
 			}
 		}
 	}
-void enter(Vehicle v)
-{//aï¿½adir vehiculo a la lista
-	vehicles.add(v);
-
-}
-void exit(Vehicle v)
-{
+	public void enter(Vehicle v)
+	{//aï¿½adir vehiculo a la lista
+		vehicles.add(v);
 	
-}
-void setWeather(Weather w)
-{
-	
-}
-
-void reduceTotalContamination()
-{
-	
-}
-void updateSpeedLimit()
-{
-	
-}
-public void addContamination(int c) {
-		if
-		(c<0)
-	{
-		throw new IllegalArgumentException();
 	}
-	c=ContTotal;
-    }
-
-int calculateVehicleSpeed(Vehicle v)
-{
-	return ContTotal;
+	public void exit(Vehicle v)
+	{
+		vehicles.remove(v);
+	}
+	public void setWeather(Weather w) throws RoadException
+	{
+		if (this.condAmb == null)
+			throw new RoadException("Road Weather can´t be null");
+		else
+			this.condAmb = w;
+	}
 	
-}
-	@Override
-	void advance(int time) {
-		// TODO Auto-generated method stub
-		
+	abstract void reduceTotalContamination();
+	
+	abstract void updateSpeedLimit();
+	
+	abstract int calculateVehicleSpeed(Vehicle v);
+	
+	public void addContamination(int c) throws RoadException{
+		if(c < 0)
+			throw new RoadException("Road contamination can´t be negative");
+		else
+			c=ContTotal;
+	}
+	
+	
+	public void advance(int time) {
+			// TODO Auto-generated method stub
+			
 	}
 
 	@Override
@@ -93,7 +87,8 @@ int calculateVehicleSpeed(Vehicle v)
 		// TODO Auto-generated method stub
 		return null;
 	}
-//getters y setter publicos 
+
+	//getters y setter publicos 
 	
 	public int getLongRoad()
 	{
