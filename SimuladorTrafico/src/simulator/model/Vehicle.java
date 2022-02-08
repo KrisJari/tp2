@@ -22,50 +22,44 @@ public class Vehicle extends SimulatedObject{
     private List<Junction> j;
     private Junction junct;
 
-	Vehicle(String id,int maxspeed,int contClass,List<Junction> itinerary) throws Exception {
-		
-		
+	Vehicle(String id,int maxspeed,int contClass,List<Junction> itinerary) throws VehicleException {
 		super(id);
-		
-			if(maxspeed<0||contClass>=0||contClass<=10||itinerary.size()<2)
-			{
-				throw new IllegalArgumentException();
-			}
-		
-		  itinerary=Collections.unmodifiableList(new ArrayList<>(itinerary));
-		this.velAct=0;
-		this.locAct=0;
-		if(velAct==0){
-		this.estado=VehicleStatus.PENDING;
+		if(maxspeed<0||contClass>=0||contClass<=10||itinerary.size()<2){
+			throw new IllegalArgumentException(); //CAMBIAR LA EXCEPTION!!!!!!!!!!!!!
 		}
-		this.distTotal=0;
-	    this.road=null;
+		
+		itinerary = Collections.unmodifiableList(new ArrayList<>(itinerary));
+		this.velAct = 0;
+		this.locAct = 0;
+		if(velAct == 0) 
+			this.estado = VehicleStatus.PENDING;
+		
+		this.distTotal = 0;
+	    this.road = null;
 	
 	}
 	
 
-	void setSpeed(int s)
+	public void setSpeed(int s) throws VehicleException
 	{
-		velAct=Math.min(s, maxspeed);
-		if(s<0)
-		{
-			throw new IllegalArgumentException("El n�mero es negativo");
-		}
+		if(s < 0)
+			throw new IllegalArgumentException("El n�mero es negativo");  //CAMBIAR LA EXCEPTION!!!!!!
+		else
+			velAct = Math.min(s, maxspeed);
 	}
 	
-	void setContaminationClass(int c)
+	public void setContaminationClass(int c) throws VehicleException
 	{
-		contClass=c;
-		if(contClass>=0||contClass<=10)
-		{
-			throw new IllegalArgumentException("El n�mero no est� entre 0 y 10");
-		
+		if(contClass >= 0 || contClass <= 10)
+			throw new IllegalArgumentException("El n�mero no est� entre 0 y 10"); //CAMBIAR LA EXCEPTION!!!!!!
+		else {
+			contClass = c;
 		}
 	}
 	
 	
 	@Override
-	void advance(int time) {
+	public void advance(int time) {
 	 
 		if (estado.equals(VehicleStatus.TRAVELING))
 		{
