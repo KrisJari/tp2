@@ -22,7 +22,7 @@ public class Vehicle extends SimulatedObject{
     private List<Junction> j;
     private Junction junct;
 
-	Vehicle(String id,int maxspeed,int contClass,List<Junction> itinerary) throws VehicleException {
+	Vehicle(String id,int maxspeed,int contClass,List<Junction> itinerary) {
 		super(id);
 		if(maxspeed<0||contClass>=0||contClass<=10||itinerary.size()<2){
 			throw new IllegalArgumentException(); //CAMBIAR LA EXCEPTION!!!!!!!!!!!!!
@@ -40,7 +40,7 @@ public class Vehicle extends SimulatedObject{
 	}
 	
 
-	public void setSpeed(int s) throws VehicleException
+	public void setSpeed(int s) 
 	{
 		if(s < 0)
 			throw new IllegalArgumentException("El n�mero es negativo");  //CAMBIAR LA EXCEPTION!!!!!!
@@ -48,7 +48,7 @@ public class Vehicle extends SimulatedObject{
 			velAct = Math.min(s, maxspeed);
 	}
 	
-	public void setContaminationClass(int c) throws VehicleException
+	public void setContaminationClass(int c) 
 	{
 		if(contClass >= 0 || contClass <= 10)
 			throw new IllegalArgumentException("El n�mero no est� entre 0 y 10"); //CAMBIAR LA EXCEPTION!!!!!!
@@ -79,11 +79,11 @@ public class Vehicle extends SimulatedObject{
 		
 	}
 	
-	protected void moveToNextRoad() throws VehicleException {
+	protected void moveToNextRoad() {
 		this.locAct = 0;
 		this.velAct = 0;
 		if (!this.estado.equals(VehicleStatus.PENDING) && !this.estado.equals(VehicleStatus.WAITING))
-			throw new VehicleException("Illegal status");
+			throw new IllegalArgumentException("Illegal status");
 		
 		if (this.estado.equals(VehicleStatus.PENDING)) {
 			this.estado = VehicleStatus.TRAVELING;

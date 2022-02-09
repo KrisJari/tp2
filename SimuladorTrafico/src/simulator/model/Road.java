@@ -55,10 +55,10 @@ public abstract class Road extends SimulatedObject
 	{
 		vehicles.remove(v);
 	}
-	public void setWeather(Weather w) throws RoadException
+	public void setWeather(Weather w) 
 	{
 		if (this.condAmb == null)
-			throw new RoadException("Road Weather can´t be null");
+			throw new IllegalArgumentException("Road Weather canï¿½t be null");
 		else
 			this.condAmb = w;
 	}
@@ -69,9 +69,9 @@ public abstract class Road extends SimulatedObject
 	
 	abstract int calculateVehicleSpeed(Vehicle v);
 	
-	public void addContamination(int c) throws RoadException{
+	public void addContamination(int c) {
 		if(c < 0)
-			throw new RoadException("Road contamination can´t be negative");
+			throw new IllegalArgumentException("Road contamination canï¿½t be negative");
 		else
 			c=ContTotal;
 	}
