@@ -1,6 +1,7 @@
 package simulator.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public abstract class Road extends SimulatedObject
 	
 		this.condAmb=weather;
 		this.limitVel=velMax;
-		vehicles = new ArrayList<Vehicle>();
+		vehicles = new ArrayList<>();
 	}
   
   
