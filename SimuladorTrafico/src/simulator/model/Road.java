@@ -49,7 +49,13 @@ public abstract class Road extends SimulatedObject
 	}
 	public void enter(Vehicle v)
 	{//a�adir vehiculo a la lista
+		if(v.getLocation()==0&&v.getSpeed()==0)
+		{
 		vehicles.add(v);
+		}
+		else{
+			throw new IllegalArgumentException("Incorrect location"+v.getLocation()+"Incorrect velocity"+v.getSpeed());
+		}
 	
 	}
 	public void exit(Vehicle v)
@@ -66,9 +72,11 @@ public abstract class Road extends SimulatedObject
 	
 	abstract void reduceTotalContamination();
 	
-	abstract void updateSpeedLimit();
+	
+	 abstract void updateSpeedLimit();
 	
 	abstract int calculateVehicleSpeed(Vehicle v);
+	
 	
 	public void addContamination(int c) {
 		if(c < 0)
@@ -79,7 +87,14 @@ public abstract class Road extends SimulatedObject
 	
 	
 	public void advance(int time) {
-			// TODO Auto-generated method stub
+			reduceTotalContamination();
+			updateSpeedLimit();
+
+
+			for(Vehicle v:vehicles)
+			{
+                  
+			}
 			
 	}
 
