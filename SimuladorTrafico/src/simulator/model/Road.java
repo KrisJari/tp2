@@ -87,13 +87,14 @@ public abstract class Road extends SimulatedObject
 	
 	
 	public void advance(int time) {
+
 			reduceTotalContamination();
 			updateSpeedLimit();
 
-
+               //int speed=calculateVehicleSpeed(v.);
 			for(Vehicle v:vehicles)
 			{
-                  
+                //  v.setSpeed(speed);
 			}
 			
 	}
