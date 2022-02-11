@@ -10,11 +10,11 @@ import org.json.JSONObject;
 public abstract class Road extends SimulatedObject
 {
 	
-	private int longRoad;//longitud de carretera
-	Junction srcJunc;//cruce origen
+	private int length;//longitud de carretera
+	Junction srcJunct;//cruce origen
 	Junction destJunc;//cruce destino
-	private int velMax;
-	private int limitVel;
+	private int maxSpeed;//velocidad maxima permitida en esa carretera
+	private int limitVel;//un vehiculo no puede circular a mas de esta velocidad
 	private int alarmContEx;
 	private Weather condAmb;
 	private int ContTotal;
@@ -22,12 +22,31 @@ public abstract class Road extends SimulatedObject
 	
 	//hola
 
-	Road(String id,Junction srcJunct,Junction destJunc,int maxspeed,int contLimit,int length,Weather weather ) {
+	Road(String id,Junction srcJunct,Junction destJunc,int maxSpeed,int contLimit,int length,Weather weather ) {
 		super(id);
-	
-		this.condAmb=weather;
-		this.limitVel=velMax;
-		vehicles = new ArrayList<>();
+		this.srcJunct = srcJunct;
+		this.destJunc = destJunc;
+		this.length = length;
+		this.maxSpeed = maxSpeed;
+		this.limitVel = maxSpeed;
+		this.alarmContEx = contLimit;
+		this.condAmb = weather;
+//		this.ContTotal    no se si inicializamos la contaminacion a 0 porque no se si se crean sin o con vehiculos
+		
+		this.vehicles = new ArrayList<>();
+		
+		if (maxSpeed < 0)
+			throw new IllegalArgumentException( "Max Speed can´t be negative");
+		if (contLimit < 0)
+			throw new IllegalArgumentException( "The contamination limit can´t be negative");
+		if (length < 0)
+			throw new IllegalArgumentException( "The leght can´t be negative");
+		if (srcJunct == null)
+			throw new IllegalArgumentException( "The source road can´t be null");
+		if(destJunc == null)
+			throw new IllegalArgumentException( "The destination road can´t be null");
+		if (weather == null)
+			throw new IllegalArgumentException( "The weather can´t be null");
 	}
   
   
@@ -72,8 +91,7 @@ public abstract class Road extends SimulatedObject
 	
 	abstract void reduceTotalContamination();
 	
-	
-	 abstract void updateSpeedLimit();
+	abstract void updateSpeedLimit();
 	
 	abstract int calculateVehicleSpeed(Vehicle v);
 	
@@ -104,13 +122,63 @@ public abstract class Road extends SimulatedObject
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	//getters y setter publicos 
-	
-	public int getLongRoad()
-	{
-		return longRoad;
+		
+	public Junction getDestJunc() {
+		return destJunc;
 	}
+	public void setDestJunc(Junction destJunc) {
+		this.destJunc = destJunc;
+	}
+	
+	public int getLimitVel() {
+		return limitVel;
+	}
+	public void setLimitVel(int limitVel) {
+		this.limitVel = limitVel;
+	}
+	public int getAlarmContEx() {
+		return alarmContEx;
+	}
+	public void setAlarmContEx(int alarmContEx) {
+		this.alarmContEx = alarmContEx;
+	}
+	public Weather getCondAmb() {
+		return condAmb;
+	}
+	public void setCondAmb(Weather condAmb) {
+		this.condAmb = condAmb;
+	}
+	public int getContTotal() {
+		return ContTotal;
+	}
+	public void setContTotal(int contTotal) {
+		ContTotal = contTotal;
+	}
+	public List<Vehicle> getVehicles() {
+		return vehicles;
+	}
+	public void setVehicles(List<Vehicle> vehicles) {
+		this.vehicles = vehicles;
+	}
+	public int getLength() {
+		return length;
+	}
+	public void setLength(int length) {
+		this.length = length;
+	}
+	public Junction getSrcJunct() {
+		return srcJunct;
+	}
+	public void setSrcJunct(Junction srcJunct) {
+		this.srcJunct = srcJunct;
+	}
+	public int getMaxSpeed() {
+		return maxSpeed;
+	}
+	public void setMaxSpeed(int maxSpeed) {
+		this.maxSpeed = maxSpeed;
+	}
+	
 	
 }
 	
