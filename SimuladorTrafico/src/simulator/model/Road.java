@@ -120,7 +120,14 @@ public abstract class Road extends SimulatedObject
 	@Override
 	public JSONObject report() {
 		// TODO Auto-generated method stub
-		return null;
+		JSONObject obj = new JSONObject();
+        obj.put("id:",_id);
+		obj.put("speedlimit:",this.getLimitVel());
+		obj.put("weather:",this.getCondAmb());
+		obj.put("co2:",this.getContTotal());
+		obj.put("vehicles:", this.vehicles);
+		
+		return obj;
 	}
 		
 	public Junction getDestJunc() {
