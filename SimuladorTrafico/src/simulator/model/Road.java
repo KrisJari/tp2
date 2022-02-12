@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public abstract class Road extends SimulatedObject
@@ -124,11 +125,16 @@ public abstract class Road extends SimulatedObject
 	@Override
 	public JSONObject report() {
 		JSONObject obj = new JSONObject();
+		JSONArray vh=new JSONArray();
         obj.put("id:",_id);
 		obj.put("speedlimit:",this.getLimitVel());
 		obj.put("weather:",this.getCondAmb());
 		obj.put("co2:",this.getCondAmb());
-		obj.put("vehicles:", this.vehicles);
+		for(Vehicle v:vehicles)
+		{
+			vh.put(v.getId());
+		}
+		obj.put("vehicles:", vh);
 		
 		return obj;
 	}
