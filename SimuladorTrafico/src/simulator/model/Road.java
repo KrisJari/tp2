@@ -10,24 +10,47 @@ import org.json.JSONObject;
 public abstract class Road extends SimulatedObject
 {
 	
-	private int longRoad;//longitud de carretera
-	Junction srcJunc;//cruce origen
+	private int length;//longitud de carretera
+	Junction srcJunct;//cruce origen
 	Junction destJunc;//cruce destino
-	private int velMax;
-	private int limitVel;
+	private int maxSpeed;//velocidad maxima permitida en esa carretera
+	private int limitVel;//un vehiculo no puede circular a mas de esta velocidad
 	private int alarmContEx;
 	private Weather condAmb;
 	private int ContTotal;
-	private List<Vehicle> vehicles; 
+	private List<Vehicle> vehicles;
+	private int longRoad;
 	
 	//hola
 
 	Road(String id,Junction srcJunct,Junction destJunc,int maxspeed,int contLimit,int length,Weather weather ) {
 		super(id);
-	
+		this.srcJunct = srcJunct;
+		this.destJunc = destJunc;
+		this.length = length;
+		this.maxSpeed = maxspeed;
+		this.limitVel = maxspeed;
+		this.alarmContEx = contLimit;
+		this.condAmb = weather;
 		this.condAmb=weather;
-		this.limitVel=velMax;
+		this.limitVel=maxspeed;
 		vehicles = new ArrayList<>();
+
+
+		if (maxSpeed < 0)
+		throw new IllegalArgumentException( "Max Speed can´t be negative");
+	if (contLimit < 0)
+		throw new IllegalArgumentException( "The contamination limit can´t be negative");
+	if (length < 0)
+		throw new IllegalArgumentException( "The leght can´t be negative");
+	if (srcJunct == null)
+		throw new IllegalArgumentException( "The source road can´t be null");
+	if(destJunc == null)
+		throw new IllegalArgumentException( "The destination road can´t be null");
+	if (weather == null)
+		throw new IllegalArgumentException( "The weather can´t be null");
+
+
 	}
   
   
@@ -101,12 +124,72 @@ public abstract class Road extends SimulatedObject
 
 	@Override
 	public JSONObject report() {
-		// TODO Auto-generated method stub
-		return null;
+		JSONObject obj = new JSONObject();
+        obj.put("id:",_id);
+		obj.put("speedlimit:",this.getLimitVel());
+		obj.put("weather:",this.getCondAmb());
+		obj.put("co2:",this.getCondAmb());
+		obj.put("vehicles:", this.vehicles);
+		
+		return obj;
 	}
 
 	//getters y setter publicos 
+	public Junction getDestJunc() {
+		return destJunc;
+	}
+	public void setDestJunc(Junction destJunc) {
+		this.destJunc = destJunc;
+	}
 	
+	public int getLimitVel() {
+		return limitVel;
+	}
+	public void setLimitVel(int limitVel) {
+		this.limitVel = limitVel;
+	}
+	public int getAlarmContEx() {
+		return alarmContEx;
+	}
+	public void setAlarmContEx(int alarmContEx) {
+		this.alarmContEx = alarmContEx;
+	}
+	public Weather getCondAmb() {
+		return condAmb;
+	}
+	public void setCondAmb(Weather condAmb) {
+		this.condAmb = condAmb;
+	}
+	public int getContTotal() {
+		return ContTotal;
+	}
+	public void setContTotal(int contTotal) {
+		ContTotal = contTotal;
+	}
+	public List<Vehicle> getVehicles() {
+		return vehicles;
+	}
+	public void setVehicles(List<Vehicle> vehicles) {
+		this.vehicles = vehicles;
+	}
+	public int getLength() {
+		return length;
+	}
+	public void setLength(int length) {
+		this.length = length;
+	}
+	public Junction getSrcJunct() {
+		return srcJunct;
+	}
+	public void setSrcJunct(Junction srcJunct) {
+		this.srcJunct = srcJunct;
+	}
+	public int getMaxSpeed() {
+		return maxSpeed;
+	}
+	public void setMaxSpeed(int maxSpeed) {
+		this.maxSpeed = maxSpeed;
+	}
 	public int getLongRoad()
 	{
 		return longRoad;

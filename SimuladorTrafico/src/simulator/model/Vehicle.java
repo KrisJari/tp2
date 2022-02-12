@@ -19,7 +19,7 @@ public class Vehicle extends SimulatedObject{
     private int distTotal;
 	private Road road;
     private Road longRoad;
-    private List<Junction> j;
+    private List<Junction> itinerary;
     private Junction junct;
 
 	Vehicle(String id,int maxspeed,int contClass,List<Junction> itinerary) {
@@ -87,6 +87,8 @@ public class Vehicle extends SimulatedObject{
 		
 		if (this.estado.equals(VehicleStatus.PENDING)) {
 			this.estado = VehicleStatus.TRAVELING;
+            road.exit(this);//esta fuera de la carretera
+
 		}
 	}
 
