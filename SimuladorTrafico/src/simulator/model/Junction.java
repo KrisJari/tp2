@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
+
 
 import org.json.JSONObject;
 
@@ -13,7 +13,7 @@ public class Junction extends SimulatedObject{
 	
   private List<Road> road;
   private  Map<Junction,Road> mapRoad;
-  private List<List<Vehicle>> colavehicles;
+  private List<List<Vehicle>> colavehicles;//representan los coches que circulan por la carretera guardada en la pos i en lista de carreteras entrantes
   private Map<Road,List<Vehicle>> mapaColas;
   private int indSV;
   private int ultCamS;
@@ -76,13 +76,13 @@ protected Road roadTo (Junction j)
 
 	@Override
 	void advance(int time) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	@Override
 	public JSONObject report() {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
