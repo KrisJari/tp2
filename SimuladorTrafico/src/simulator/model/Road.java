@@ -113,13 +113,12 @@ public abstract class Road extends SimulatedObject
 
 			reduceTotalContamination();
 			updateSpeedLimit();
-
-               //int speed=calculateVehicleSpeed(v.);
 			for(Vehicle v:vehicles)
 			{
-                //  v.setSpeed(speed);
+                 v.setSpeed(calculateVehicleSpeed(v));
+				 v.advance(time);
 			}
-			
+			//clases anidadas
 	}
 
 	@Override

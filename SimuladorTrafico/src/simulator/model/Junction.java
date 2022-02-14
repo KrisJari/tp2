@@ -2,6 +2,7 @@ package simulator.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -15,8 +16,8 @@ public class Junction extends SimulatedObject{
   private  Map<Junction,Road> mapRoad;
   private List<List<Vehicle>> colavehicles;//representan los coches que circulan por la carretera guardada en la pos i en lista de carreteras entrantes
   private Map<Road,List<Vehicle>> mapaColas;
-  private int indSV;
-  private int ultCamS;
+  private int indSV;//indice del semáforo
+  private int ultCamS;//ultimo cambio de cambio de semáforo
   private LightSwitchingStrategy isStrategy;
   private DequeuingStrategy dqStrategy ;
   private int x;
@@ -47,7 +48,15 @@ public class Junction extends SimulatedObject{
 	}
     void enter(Vehicle v)
 	{
-
+       mapaColas.get(v.getCarretera()).add(v);
+	}
+	void addOutgoingRoad(Road r)
+	{
+     mapRoad.put(r.destJunc,r);
+	 if(!r.destJunc.equals(this)&&r.srcJunct.equals(this))
+	 {
+		throw new IllegalArgumentException("no es una carretera saliente");
+	 }
 	}
    void addIncomingRoad(Road r)
    {
@@ -59,17 +68,25 @@ public class Junction extends SimulatedObject{
 	   //me creo una cola de roads y luego me creo un mapa con esas colas y Road 
 	   //que añade ese mapa al par de Map<Junction ,Road>
 
-	   //Map<Road,ColaR>?
+	   //Map<Road,ColaR>?==Mapa<Road,List<Vehicle>>
 
 	   //me creo una lista de colas según la página 12 List<List<Vehicles>> pero como es una la declaramos
 	   List<Vehicle> cola= new LinkedList<>();
 	   //añadimos la final de la lista de colas
 	   colavehicles.add(cola);
 	   //el mapa carretera cola es mapaColas pagina 12 se dice que se guarde para hacer la búsqueda
-	   
+	   mapaColas.put(r, cola);
+
+
    }
 public Road roadTo (Junction j)
 {
+	Iterator it=mapRoad.keySet().iterator();
+	while(it.hasNext())
+	{
+       
+
+	}
 	return null;
 }
 
