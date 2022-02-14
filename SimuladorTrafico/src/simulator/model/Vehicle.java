@@ -21,6 +21,7 @@ public class Vehicle extends SimulatedObject{
     private Road longRoad;
     private List<Junction> itinerary;
     private Junction junct;
+	private int current_junct;
 
 	Vehicle(String id,int maxspeed,int contClass,List<Junction> itinerary) {
 		super(id);
@@ -87,8 +88,29 @@ public class Vehicle extends SimulatedObject{
 		
 		if (this.estado.equals(VehicleStatus.PENDING)) {
 			this.estado = VehicleStatus.TRAVELING;
-            road.exit(this);//esta fuera de la carretera
+            //road.exit(this);//esta fuera de la carretera
+			//itinerary.get(0);//la localizacion de la pos 0 del cruce
+		    road=junct.roadTo(itinerary.get(0));
+			locAct=0;
+			current_junct++;//indice le sumas más uno por si no estas en 0
+			road.enter(this);
 
+		}
+		else
+		{
+             if(current_junct+1==itinerary.size())
+			 {
+                 estado=VehicleStatus.ARRIVED;
+				 road.exit(this);
+			 }
+			 else
+			 {
+                road.exit(this);
+				road=junct.roadTo(itinerary.get(current_junct));
+				estado=VehicleStatus.TRAVELING;
+				current_junct++;
+				road.enter(this);
+			 }
 		}
 	}
 

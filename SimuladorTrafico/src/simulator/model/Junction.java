@@ -68,7 +68,7 @@ public class Junction extends SimulatedObject{
 	   //el mapa carretera cola es mapaColas pagina 12 se dice que se guarde para hacer la búsqueda
 	   
    }
-protected Road roadTo (Junction j)
+public Road roadTo (Junction j)
 {
 	return null;
 }
