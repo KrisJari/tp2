@@ -8,7 +8,7 @@ public class NewCityRoadEvent extends Event {
     }
 
     @Override
-    void execute(RoadMap map) {
+    public void execute(RoadMap map) {
         // TODO Auto-generated method stub
         
     }
