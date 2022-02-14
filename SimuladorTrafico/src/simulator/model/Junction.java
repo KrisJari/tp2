@@ -52,11 +52,12 @@ public class Junction extends SimulatedObject{
 	}
 	void addOutgoingRoad(Road r)
 	{
-     mapRoad.put(r.destJunc,r);
+    
 	 if(!r.destJunc.equals(this)&&r.srcJunct.equals(this))
 	 {
 		throw new IllegalArgumentException("no es una carretera saliente");
-	 }
+	 } 
+	 mapRoad.put(r.destJunc,r);
 	}
    void addIncomingRoad(Road r)
    {
@@ -81,13 +82,7 @@ public class Junction extends SimulatedObject{
    }
 public Road roadTo (Junction j)
 {
-	Iterator it=mapRoad.keySet().iterator();
-	while(it.hasNext())
-	{
-       
-
-	}
-	return null;
+	return mapRoad.get(j);
 }
 
 
