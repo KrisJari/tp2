@@ -24,7 +24,7 @@ public class Junction extends SimulatedObject{
   private int y;
   
   
-	Junction (String id,LightSwitchingStrategy isStrategy,DequeuingStrategy dqStrategy,int xCoor,int yCoor) {
+  Junction (String id,LightSwitchingStrategy isStrategy,DequeuingStrategy dqStrategy,int xCoor,int yCoor) {
 		super(id);
 		this.road=new ArrayList<>();
         this.mapRoad=new HashMap<Junction,Road>() ;
@@ -46,23 +46,21 @@ public class Junction extends SimulatedObject{
 
 		this.ultCamS=1;
 	}
-    void enter(Vehicle v)
-	{
+  
+    public void enter(Vehicle v){
        mapaColas.get(v.getCarretera()).add(v);
 	}
 	void addOutgoingRoad(Road r)
 	{
     
 	 if(!r.destJunc.equals(this)&&r.srcJunct.equals(this))
-	 {
 		throw new IllegalArgumentException("no es una carretera saliente");
-	 } 
-	 mapRoad.put(r.destJunc,r);
+	 
+	   mapRoad.put(r.destJunc,r);
 	}
-   void addIncomingRoad(Road r)
-   {
-	   if(!r.destJunc.equals(this))
-	   {
+	
+   public void addIncomingRoad(Road r){
+	   if(!r.destJunc.equals(this)){
 		   throw new IllegalArgumentException("no es una carretera entrante");
 	   }
 	   road.add(r);
@@ -77,8 +75,6 @@ public class Junction extends SimulatedObject{
 	   colavehicles.add(cola);
 	   //el mapa carretera cola es mapaColas pagina 12 se dice que se guarde para hacer la búsqueda
 	   mapaColas.put(r, cola);
-
-
    }
 public Road roadTo (Junction j)
 {
@@ -87,7 +83,7 @@ public Road roadTo (Junction j)
 
 
 	@Override
-	void advance(int time) {
+	protected void advance(int time) {
 		
 		
 	}
@@ -97,5 +93,7 @@ public Road roadTo (Junction j)
 		
 		return null;
 	}
+	
+	
 
 }

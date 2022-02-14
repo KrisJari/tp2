@@ -4,7 +4,7 @@ import java.util.List;
 
 public class RoundRobinStrategy implements LightSwitchingStrategy {
 
-	int timeSlot;//numero de tics consecutivos
+	private int timeSlot;//numero de tics consecutivos
 	
 	
 	
