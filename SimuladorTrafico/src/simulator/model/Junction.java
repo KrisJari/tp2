@@ -84,8 +84,11 @@ public Road roadTo (Junction j)
 
 	@Override
 	protected void advance(int time) {
-		
-		
+		//necesitamos una lista de vehicle que guarde la estrategia colavehicle.get()nos dice en las colas en que indice
+		//esta el semaforo
+		List <Vehicle> vh=dqStrategy.dequeue(colavehicles.get(indSV));
+        
+	
 	}
 
 	@Override
