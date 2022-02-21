@@ -7,15 +7,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class Junction extends SimulatedObject{
 	
   private List<Road> road;
-  private  Map<Junction,Road> mapRoad;
+  private  Map<Junction,Road> mapRoad;//mapa de carreteras SALIENTES 
   private List<List<Vehicle>> colavehicles;//representan los coches que circulan por la carretera guardada en la pos i en lista de carreteras entrantes
-  private Map<Road,List<Vehicle>> mapaColas;
+  private Map<Road,List<Vehicle>> mapaColas;//para hacer la busqueda 
   private int indSV;//indice del semáforo
   private int ultCamS;//ultimo cambio de cambio de semáforo
   private LightSwitchingStrategy isStrategy;
@@ -47,19 +47,18 @@ public class Junction extends SimulatedObject{
 		this.ultCamS=1;
 	}
   
-    public void enter(Vehicle v){
+  	protected void enter(Vehicle v){
        mapaColas.get(v.getCarretera()).add(v);
 	}
-	void addOutgoingRoad(Road r)
-	{
     
+	protected void addOutGoingRoad(Road r){
 	 if(!r.destJunc.equals(this)&&r.srcJunct.equals(this))
 		throw new IllegalArgumentException("no es una carretera saliente");
 	 
 	   mapRoad.put(r.destJunc,r);
 	}
 	
-   public void addIncomingRoad(Road r){
+	protected void addIncomingRoad(Road r){
 	   if(!r.destJunc.equals(this)){
 		   throw new IllegalArgumentException("no es una carretera entrante");
 	   }
@@ -70,31 +69,122 @@ public class Junction extends SimulatedObject{
 	   //Map<Road,ColaR>?==Mapa<Road,List<Vehicle>>
 
 	   //me creo una lista de colas según la página 12 List<List<Vehicles>> pero como es una la declaramos
-	   List<Vehicle> cola= new LinkedList<>();
+	   List<Vehicle> cola = new LinkedList<>();
 	   //añadimos la final de la lista de colas
 	   colavehicles.add(cola);
 	   //el mapa carretera cola es mapaColas pagina 12 se dice que se guarde para hacer la búsqueda
 	   mapaColas.put(r, cola);
-   }
-public Road roadTo (Junction j)
-{
-	return mapRoad.get(j);
-}
+	   
+	}
+	
+	public Road roadTo (Junction j){
+		return this.mapRoad.get(j);
+	}
 
 
 	@Override
 	protected void advance(int time) {
 		//necesitamos una lista de vehicle que guarde la estrategia colavehicle.get()nos dice en las colas en que indice
 		//esta el semaforo
-		List <Vehicle> vh=dqStrategy.dequeue(colavehicles.get(indSV));
+		List <Vehicle> vh = dqStrategy.dequeue(colavehicles.get(indSV));
+        for (Vehicle v : vh) {
+        	v.moveToNextRoad();
+        	if (v.getStatus().equals(VehicleStatus.TRAVELING) || v.getStatus().equals(VehicleStatus.ARRIVED)) {
+        		this.colavehicles.get(indSV).remove(v);
+        	}
+        }
         
+        int verde = this.indSV;
+        this.indSV = this.isStrategy.chooseNextGreen(road, colavehicles,indSV , ultCamS, time);
+        if (this.indSV != verde)
+        	this.ultCamS = time;
 	
 	}
 
 	@Override
 	public JSONObject report() {
-		
-		return null;
+		JSONObject obj = new JSONObject();
+		obj.put("id:",_id);
+		if ( this.indSV != -1)
+			obj.put("green:", getIndSV());
+		else
+			obj.put("green:", "none");
+		obj.put("queues:",getColavehicles());
+		obj.put("road:", _id);
+		obj.put("vehicles:",getRoad());
+		return obj;
+	}
+
+	public List<Road> getRoad() {
+		return road;
+	}
+
+	public void setRoad(List<Road> road) {
+		this.road = road;
+	}
+
+	public Map<Junction, Road> getMapRoad() {
+		return mapRoad;
+	}
+
+	public void setMapRoad(Map<Junction, Road> mapRoad) {
+		this.mapRoad = mapRoad;
+	}
+
+	public List<List<Vehicle>> getColavehicles() {
+		return colavehicles;
+	}
+
+	public void setColavehicles(List<List<Vehicle>> colavehicles) {
+		this.colavehicles = colavehicles;
+	}
+
+	public Map<Road, List<Vehicle>> getMapaColas() {
+		return mapaColas;
+	}
+
+	public void setMapaColas(Map<Road, List<Vehicle>> mapaColas) {
+		this.mapaColas = mapaColas;
+	}
+
+	public int getIndSV() {
+		return indSV;
+	}
+
+	public void setIndSV(int indSV) {
+		this.indSV = indSV;
+	}
+
+	public int getUltCamS() {
+		return ultCamS;
+	}
+
+	public void setUltCamS(int ultCamS) {
+		this.ultCamS = ultCamS;
+	}
+
+	public LightSwitchingStrategy getIsStrategy() {
+		return isStrategy;
+	}
+
+	public void setIsStrategy(LightSwitchingStrategy isStrategy) {
+		this.isStrategy = isStrategy;
+	}
+
+	public DequeuingStrategy getDqStrategy() {
+		return dqStrategy;
+	}
+
+	public void setDqStrategy(DequeuingStrategy dqStrategy) {
+		this.dqStrategy = dqStrategy;
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
 	}
 	
 	

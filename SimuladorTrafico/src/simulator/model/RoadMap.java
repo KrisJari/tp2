@@ -5,12 +5,12 @@ import java.util.Map;
 
 public class RoadMap {
 	
-	protected List<Junction> junct;
-	protected List<Road> r;
-	protected List<Vehicle> vh;
-	protected Map<String,Junction> cruces;
-	protected Map<String ,Road> roads;
-	protected Map<String,Vehicle> vehicles;
+	protected List<Junction> junct;//lesta de cruces
+	protected List<Road> r; //lista de carreteras 
+	protected List<Vehicle> vh;//lista de vehiculos 
+	protected Map<String,Junction> cruces;//mapa de cruces 
+	protected Map<String ,Road> roads;//mapa de carreteras 
+	protected Map<String,Vehicle> vehicles;//mapa de vehiculos 
 	
 	protected RoadMap()
 	{
