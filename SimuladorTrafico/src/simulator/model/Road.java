@@ -2,6 +2,7 @@ package simulator.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -171,7 +172,7 @@ public abstract class Road extends SimulatedObject
 		ContTotal = contTotal;
 	}
 	public List<Vehicle> getVehicles() {
-		return vehicles;
+		return Collections.unmodifiableList(vehicles);
 	}
 	public void setVehicles(List<Vehicle> vehicles) {
 		this.vehicles = vehicles;
