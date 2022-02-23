@@ -19,14 +19,14 @@ public class Junction extends SimulatedObject{
   private int indSV;//indice del semáforo
   private int ultCamS;//ultimo cambio de cambio de semáforo
   private LightSwitchingStrategy isStrategy;
-  private DequeuingStrategy dqStrategy ;
+  private DequeuingStrategy dqStrategy;
   private int x;
   private int y;
   
   
   Junction (String id,LightSwitchingStrategy isStrategy,DequeuingStrategy dqStrategy,int xCoor,int yCoor) {
 		super(id);
-		this.road=new ArrayList<>();
+		this.road = new ArrayList<>();
         this.mapRoad=new HashMap<Junction,Road>() ;
 		this.colavehicles= new ArrayList<List<Vehicle>>();
         if(isStrategy==null||dqStrategy==null)
