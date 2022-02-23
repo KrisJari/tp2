@@ -1,19 +1,18 @@
 package simulator.model;
 
-public class NewCityRoadEvent extends Event {
+public class NewCityRoadEvent extends NewRoadEvent {
 	
-	private CityRoad cityRoad; 
 	
-    public NewCityRoadEvent(int time, String id, Junction srcJun, Junction destJunc, int lenght, int co2Limit, int maxSpeed, Weather weather) {
-        super(time);
+    public NewCityRoadEvent(int time, String id, String srcJun, String destJunc, int lenght, int co2Limit, int maxSpeed, Weather weather) {
+        super(time, id, srcJun, destJunc, lenght, maxSpeed, weather);
         //TODO Auto-generated constructor stub
-        this.cityRoad = new CityRoad(id, srcJun, destJunc, maxSpeed, co2Limit, lenght, weather);
     }
 
     @Override
     public void execute(RoadMap map) {
         // TODO Auto-generated method stub
-        map.addRoad(this.cityRoad);
+    	Road cityRoad = new CityRoad(id, map.getJunction(srcJunc), map.getJunction(destJunc), lenght, co2Limit,maxSpeed, weather);
+        map.addRoad(cityRoad);
     }
     
 }
