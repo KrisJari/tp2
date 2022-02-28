@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -26,9 +27,10 @@ public class Junction extends SimulatedObject{
   
   Junction (String id,LightSwitchingStrategy isStrategy,DequeuingStrategy dqStrategy,int xCoor,int yCoor) {
 		super(id);
-		this.road = new ArrayList<>();
+		this.road = new ArrayList<Road>();
         this.mapRoad=new HashMap<Junction,Road>() ;
 		this.colavehicles= new ArrayList<List<Vehicle>>();
+		this.mapaColas = new HashMap<Road, List<Vehicle>>();
         if(isStrategy==null||dqStrategy==null)
 		{
             throw new IllegalArgumentException("Las estrategias son nulas");
@@ -48,7 +50,7 @@ public class Junction extends SimulatedObject{
 	}
   
   	protected void enter(Vehicle v){
-       mapaColas.get(v.getCarretera()).add(v);
+       this.mapaColas.get(v.getRoad()).add(v);
 	}
     
 	protected void addOutGoingRoad(Road r){

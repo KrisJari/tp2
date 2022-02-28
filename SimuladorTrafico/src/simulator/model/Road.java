@@ -23,7 +23,6 @@ public abstract class Road extends SimulatedObject
 	private List<Vehicle> vehicles;
 	private int longRoad;
 	
-	//hola
 
 	Road(String id,Junction srcJunct,Junction destJunc,int maxSpeed,int contLimit,int length,Weather weather ) {
 		super(id);
@@ -72,14 +71,14 @@ public abstract class Road extends SimulatedObject
 			}
 		}
 	}
-	public void enter(Vehicle v)
-	{//a�adir vehiculo a la lista
-		if(v.getLocation()==0&&v.getSpeed()==0)
-		{
-		vehicles.add(v);
+	public void enter(Vehicle v){//a�adir vehiculo a la lista
+		if (v.getSpeed() != 0)
+			throw new IllegalArgumentException("Incorrect velocity");
+		else if (v.getLocation() != 0) {
+			throw new IllegalArgumentException("Incorrect location");
 		}
-		else{
-			throw new IllegalArgumentException("Incorrect location"+v.getLocation()+"Incorrect velocity"+v.getSpeed());
+		else {
+			vehicles.add(v);
 		}
 	
 	}

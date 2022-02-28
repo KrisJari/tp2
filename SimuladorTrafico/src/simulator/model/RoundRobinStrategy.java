@@ -6,7 +6,9 @@ public class RoundRobinStrategy implements LightSwitchingStrategy {
 
 	private int timeSlot;//numero de tics consecutivos
 	
-	
+	public RoundRobinStrategy (int timeSlot) {
+		this.timeSlot = timeSlot;
+	}
 	
 	@Override
 	public int chooseNextGreen(List<Road> roads, List<List<Vehicle>> qs, int currGreen, int lastSwitchingTime,
