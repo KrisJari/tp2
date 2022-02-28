@@ -118,7 +118,7 @@ public class Vehicle extends SimulatedObject{
 		  obj.put("speed:",getSpeed());
 		  obj.put("distance:",getTotalDistance());
 		  obj.put("co2:",getTotalCO2());
-          obj.put("class:",getGradCont());
+          obj.put("class:",getContClass());
 		  obj.put("status",getStatus());
 		  
 
@@ -144,7 +144,7 @@ public class Vehicle extends SimulatedObject{
 	{
 		return contTotal;
 	}
-	public int getGradCont()
+	public int getContClass()
 	{
 		return gradCont;
 	}
@@ -160,4 +160,20 @@ public class Vehicle extends SimulatedObject{
 	{
 		return locAct;
 	}
+	public void setContClass(int contClass) {
+		this.contClass = contClass;
+	}
+	public List<Junction> getItinerary() {
+		return itinerary;
+	}
+	public void setItinerary(List<Junction> itinerary) {
+		this.itinerary = itinerary;
+	}
+	public Road getRoad() {
+		return road;
+	}
+	public void setRoad(Road road) {
+		this.road = road;
+	}
+	
 }
