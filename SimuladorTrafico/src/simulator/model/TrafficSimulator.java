@@ -9,9 +9,9 @@ public class TrafficSimulator {
     private int time; //tiempo aka paso de la simulacion
     
     public TrafficSimulator() {
-    	this.roadMap = new RoadMap();
-    	this.events = new ArrayList<Event>();
-    	this.time = 1;
+    	this.roadMap = new RoadMap();//mapa de carreteras
+    	this.events = new ArrayList<Event>();//eventos a ejectuar
+    	this.time = 0;
     }
     
     public void addEvent(Event e) {
@@ -19,7 +19,19 @@ public class TrafficSimulator {
     }
     
     public void advance() {
-    	
+    	this.time++;
+    	for (Event e : events) {
+    		if(e.getTime() == this.time) {
+    			e.execute(roadMap);
+    			this.events.remove(e);
+    		}
+    	}
+    	for (Junction j : roadMap.getJunction()) {
+    		j.advance(time);
+    	}
+    	for (Road r : roadMap.getRoads()) {
+    		r.advance(time);
+    	}
     }
     
     public void reset() {
@@ -29,6 +41,9 @@ public class TrafficSimulator {
     }
     
     public JSONObject report() {
-    	return null;
+    	JSONObject obj = new JSONObject();
+    	obj.put("time", time - 1);
+    	obj.put("state", roadMap.report());
+    	return obj;
     }
 }
