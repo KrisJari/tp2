@@ -24,19 +24,18 @@ public class Vehicle extends SimulatedObject{
 
 	Vehicle(String id,int maxspeed,int contClass,List<Junction> itinerary) {
 		super(id);
-//		if(maxspeed < 0||contClass >= 0||contClass <= 10 || itinerary.size()<2){
-//			throw new IllegalArgumentException(); //CAMBIAR LA EXCEPTION!!!!!!!!!!!!!
-//		}
-		
+		if(maxspeed < 0||contClass >= 0||contClass <= 10 || itinerary.size()<=2){
+			throw new IllegalArgumentException(); //CAMBIAR LA EXCEPTION!!!!!!!!!!!!!
+		}
+		this.maxspeed = maxspeed;
+		this.contClass = contClass;
 		this.itinerary = Collections.unmodifiableList(new ArrayList<>(itinerary));
 		this.current_junct = 0;
 		this.velAct = 0;
 		this.locAct = 0;
 		if(velAct == 0) 
 			this.estado = VehicleStatus.PENDING;
-		
 		this.distTotal = 0;
-
 	}
 	
 

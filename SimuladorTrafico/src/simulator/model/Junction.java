@@ -1,5 +1,6 @@
 package simulator.model;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 //import java.util.HashMap;
 //import java.util.Iterator;
@@ -7,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+
+import javax.sql.rowset.serial.SQLOutputImpl;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -28,7 +31,7 @@ public class Junction extends SimulatedObject{
   Junction (String id,LightSwitchingStrategy isStrategy,DequeuingStrategy dqStrategy,int xCoor,int yCoor) {
 		super(id);
 		this.road = new ArrayList<Road>();
-        this.mapRoad=new TreeMap<Junction,Road>() ;
+        this.mapRoad=new TreeMap<Junction,Road>(new MapRoad());
 		this.colavehicles= new ArrayList<List<Vehicle>>();
 		this.mapaColas = new TreeMap<Road, List<Vehicle>>();
         if(isStrategy==null||dqStrategy==null)
@@ -80,7 +83,9 @@ public class Junction extends SimulatedObject{
 	}
 	
 	protected Road roadTo (Junction j){
+		
 		return this.mapRoad.get(j);
+		
 	}
 
 
