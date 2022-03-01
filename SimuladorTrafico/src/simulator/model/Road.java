@@ -164,7 +164,7 @@ public abstract class Road extends SimulatedObject
 	public void setCondAmb(Weather condAmb) {
 		this.condAmb = condAmb;
 	}
-	public int getContTotal() {
+	public int getTotalCO2() {
 		return ContTotal;
 	}
 	public void setContTotal(int contTotal) {
