@@ -9,7 +9,7 @@ public class NewSetContClassEvent extends Event{
 	
 	private List<Pair<String, Integer>> cs;
 
-    NewSetContClassEvent(int time, List<Pair<String,Integer>> cs) {
+    public NewSetContClassEvent(int time, List<Pair<String,Integer>> cs) {
         super(time);
         //TODO Auto-generated constructor stub
         if(cs.equals(null))
