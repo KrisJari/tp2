@@ -6,6 +6,10 @@ import java.util.ListIterator;
 public class MostCrowdedStrategy implements LightSwitchingStrategy{
 
 	private int timeSlot;
+	
+	public MostCrowdedStrategy(int timeSlot) {
+		this.timeSlot = timeSlot;
+	}
 	@Override
 	public int chooseNextGreen(List<Road> roads, List<List<Vehicle>> qs, int currGreen, int lastSwitchingTime, int currTime) {
 		List<Vehicle> aux=qs.get(0);

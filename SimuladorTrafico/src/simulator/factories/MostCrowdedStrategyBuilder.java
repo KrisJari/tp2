@@ -3,6 +3,7 @@ package simulator.factories;
 import org.json.JSONObject;
 
 import simulator.model.LightSwitchingStrategy;
+import simulator.model.MostCrowdedStrategy;
 
 public class MostCrowdedStrategyBuilder extends Builder<LightSwitchingStrategy>{
 
@@ -14,7 +15,12 @@ public class MostCrowdedStrategyBuilder extends Builder<LightSwitchingStrategy>{
 	@Override
 	protected LightSwitchingStrategy createTheInstance(JSONObject data) {
 		// TODO Auto-generated method stub
-		return null;
+		MostCrowdedStrategy crow;
+		if(data.has("timeslot"))
+			crow = new MostCrowdedStrategy(data.getInt("timeslot"));
+		else
+			crow = new MostCrowdedStrategy(1);
+		return crow;
 	}
 
 }

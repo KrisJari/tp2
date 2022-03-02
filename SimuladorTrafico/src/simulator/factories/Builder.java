@@ -3,7 +3,7 @@ package simulator.factories;
 import org.json.JSONObject;
 
 public abstract class Builder<T> {
-	protected String _type;
+	protected String _type;//tipo de objeto que es 
 
 	Builder(String type) {
 		if (type == null)
@@ -23,5 +23,5 @@ public abstract class Builder<T> {
 		return b;
 	}
 
-	protected abstract T createTheInstance(JSONObject data);
+	protected abstract T createTheInstance(JSONObject data);//data: informacion del objeto _type 
 }

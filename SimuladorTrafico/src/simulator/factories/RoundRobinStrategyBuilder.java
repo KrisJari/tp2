@@ -14,9 +14,13 @@ public class RoundRobinStrategyBuilder extends Builder<LightSwitchingStrategy>{
 	@Override
 	protected LightSwitchingStrategy createTheInstance(JSONObject data) {
 		// TODO Auto-generated method stub
-		Integer time = data.getInt("timeslot");
-		LightSwitchingStrategy lightSwitch = new RoundRobinStrategy(time);
-		return lightSwitch;
+		RoundRobinStrategy round;
+		if (data.has("timeslot"))
+			round = new RoundRobinStrategy(data.getInt("timeslot"));
+		else
+			round = new RoundRobinStrategy(1);
+		
+		return round;
 	}
 	
 }
