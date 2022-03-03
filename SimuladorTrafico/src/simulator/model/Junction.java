@@ -57,14 +57,14 @@ public class Junction extends SimulatedObject{
 	}
     
 	protected void addOutGoingRoad(Road r){
-	 if(!r.destJunc.equals(this)&&r.srcJunct.equals(this))
+	 if(!r.destJunct.equals(this)&&r.srcJunct.equals(this))
 		throw new IllegalArgumentException("no es una carretera saliente");
 	 
 	   this.mapRoad.put(this,r);
 	}
 	
 	protected void addIncomingRoad(Road r){
-	   if(!r.destJunc.equals(this)){
+	   if(!r.destJunct.equals(this)){
 		   throw new IllegalArgumentException("no es una carretera entrante");
 	   }
 	   this.road.add(r);

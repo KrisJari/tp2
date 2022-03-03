@@ -22,13 +22,13 @@ public class CityRoad extends Road{
 	@Override
 	void updateSpeedLimit() {
 		// TODO Auto-generated method stub
-		setLimitVel(getMaxSpeed());
+		setMaxSpeed(getMaxSpeed());
 	}
 
 	@Override
 	int calculateVehicleSpeed(Vehicle v) {
 		// TODO Auto-generated method stub
-		v.setSpeed((int)(((11.0 - v.getContClass()) / 11.0) * this.getLimitVel()));
+		v.setSpeed((int)(((11.0 - v.getContClass()) / 11.0) * this.getMaxSpeed()));
 		return v.getSpeed();
 	}
 

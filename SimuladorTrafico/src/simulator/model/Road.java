@@ -12,8 +12,8 @@ import org.json.JSONObject;
 public abstract class Road extends SimulatedObject{
 	
 	private int length;//longitud de carretera
-	private Junction srcJunct;//cruce origen
-	private Junction destJunct;//cruce destino
+	Junction srcJunct;//cruce origen
+	Junction destJunct;//cruce destino
 	private int maxSpeed;//velocidad maxima permitida en esa carretera
 	private int alarmContEx;
 	private Weather condAmb;

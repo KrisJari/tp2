@@ -33,16 +33,16 @@ public class InterCityRoad extends Road {
 			setMaxSpeed((int)(getMaxSpeed() * 0.5));
 		}
 		else
-			setLimitVel(getMaxSpeed());
+			setMaxSpeed(getMaxSpeed());
 	}
 
 	@Override
 	protected int calculateVehicleSpeed(Vehicle v) {
 		// TODO Auto-generated method stub
 		if (this.getCondAmb() == Weather.STORM)
-			v.setSpeed((int)(getLimitVel() * 0.8));
+			v.setSpeed((int)(getMaxSpeed() * 0.8));
 		else
-			v.setSpeed(getLimitVel());
+			v.setSpeed(getMaxSpeed());
 		return v.getSpeed();
 	}
 
