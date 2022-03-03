@@ -16,44 +16,49 @@ import org.json.JSONObject;
 
 public class Junction extends SimulatedObject{
 	
-  List<Road> road;//mapa de carreteras ENTRANTES
-  Map<Junction,Road> mapRoad;//mapa de carreteras SALIENTES 
-  List<List<Vehicle>> colavehicles; 
-  Map<Road,List<Vehicle>> mapaColas;//para hacer la busqueda 
-  int indSV;//indice del semáforo
-  int ultCamS;//ultimo cambio de cambio de semáforo
-  LightSwitchingStrategy isStrategy;
-  DequeuingStrategy dqStrategy;
-  int x;
-  int y;
+	  private List<Road> road;//mapa de carreteras ENTRANTES
+	  private Map<Junction,Road> mapRoad;//mapa de carreteras SALIENTES 
+	  private List<List<Vehicle>> colavehicles; 
+	  private Map<Road,List<Vehicle>> mapaColas;//para hacer la busqueda 
+	  private int indSV;//indice del semáforo
+	  private int ultCamS;//ultimo cambio de cambio de semáforo
+	  private LightSwitchingStrategy isStrategy;
+	  private DequeuingStrategy dqStrategy;
+	  private int x;
+	  private int y;
   
   
   Junction (String id,LightSwitchingStrategy isStrategy,DequeuingStrategy dqStrategy,int xCoor,int yCoor) {
 		super(id);
 		this.road = new ArrayList<Road>();
-        this.mapRoad=new TreeMap<Junction,Road>(new MapRoad());
+        this.mapRoad=new TreeMap<Junction,Road>();
 		this.colavehicles= new ArrayList<List<Vehicle>>();
 		this.mapaColas = new TreeMap<Road, List<Vehicle>>();
-        if(isStrategy==null||dqStrategy==null)
-		{
-            throw new IllegalArgumentException("Las estrategias son nulas");
-		}
-		this.dqStrategy=dqStrategy;
-		this.isStrategy=isStrategy;
-
-		if(xCoor<0||yCoor<0)
-		{
-			throw new IllegalArgumentException("Las coordenadas son negativas");
-
-		}
-		this.x=xCoor;
-        this.y=yCoor;
+        if(isStrategy==null)
+            throw new IllegalArgumentException("light switching strategy can't be null");
+        else 
+        	this.isStrategy=isStrategy;
+        if (dqStrategy==null)
+            throw new IllegalArgumentException("dequeuing strategy can't be null");
+        else
+        	this.dqStrategy=dqStrategy;
+        if(xCoor<0)
+			throw new IllegalArgumentException("coor x can't be null");
+        else
+    		this.x=xCoor;
+        if(yCoor<0)
+			throw new IllegalArgumentException("coor y can't be null");
+        else
+        	this.y=yCoor;
 
 		this.ultCamS=1;
 	}
   
   	protected void enter(Vehicle v){
-       this.mapaColas.get(v.getRoad()).add(v);
+//       this.mapaColas.get(v.getRoad()).add(v);
+  		Road enteringRoad = v.getRoad();
+  		List<Vehicle> vehicles = mapaColas.get(enteringRoad);
+  		vehicles.add(v);
 	}
     
 	protected void addOutGoingRoad(Road r){
@@ -84,8 +89,8 @@ public class Junction extends SimulatedObject{
 	
 	protected Road roadTo (Junction j){
 		
-		List<Road> road2 = j.getRoad();
-		return this.mapRoad.get(road2);
+//		List<Road> road2 = j.getRoad();
+		return this.mapRoad.get(j);
 		
 	}
 

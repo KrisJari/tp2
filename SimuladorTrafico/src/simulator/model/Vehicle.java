@@ -76,7 +76,7 @@ public class Vehicle extends SimulatedObject{
 			this.road.addContamination(c);
 
 			if(locNew >= this.longRoad.getLongRoad()){
-                 this.road.getDestJunc().enter(this);
+                 this.road.getDestJunct().enter(this);
 				 this.estado = VehicleStatus.WAITING;
 				 this.velAct = 0;
 				 this.current_junct++;

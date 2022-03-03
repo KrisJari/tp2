@@ -85,18 +85,18 @@ public abstract class Road extends SimulatedObject{
 			throw new IllegalArgumentException("Incorrect location");
 		}
 		else {
-			vehicles.add(v);
+			this.vehicles.add(v);
 		}
 	
 	}
 	public void exit(Vehicle v)
 	{
-		vehicles.remove(v);
+		this.vehicles.remove(v);
 	}
 	public void setWeather(Weather w) 
 	{
-		if (this.condAmb == null)
-			throw new IllegalArgumentException("Road Weather can�t be null");
+		if (w == null)
+			throw new IllegalArgumentException("Road Weather can't be null");
 		else
 			this.condAmb = w;
 	}
@@ -110,7 +110,7 @@ public abstract class Road extends SimulatedObject{
 	
 	public void addContamination(int c) {
 		if(c < 0)
-			throw new IllegalArgumentException("Road contamination can�t be negative");
+			throw new IllegalArgumentException("Road contamination can't be negative");
 		else
 			this.contTotal = c;
 	}
@@ -148,10 +148,10 @@ public abstract class Road extends SimulatedObject{
 	}
 
 	//getters y setter publicos 
-	public Junction getDestJunc() {
+	public Junction getDestJunct() {
 		return destJunct;
 	}
-	public void setDestJunc(Junction destJunc) {
+	public void setDestJunct(Junction destJunc) {
 		this.destJunct = destJunc;
 	}
 	
@@ -172,7 +172,7 @@ public abstract class Road extends SimulatedObject{
 		return contTotal;
 	}
 	public void setContTotal(int contTotal) {
-		contTotal = contTotal;
+		this.contTotal = contTotal;
 	}
 	public List<Vehicle> getVehicles() {
 		return Collections.unmodifiableList(vehicles);
