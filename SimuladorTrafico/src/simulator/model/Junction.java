@@ -117,10 +117,32 @@ public class Junction extends SimulatedObject{
 			obj.put("green:", getIndSV());
 		else
 			obj.put("green:", "none");
-		obj.put("queues:",getColavehicles());
-		obj.put("road:", _id);
-		obj.put("vehicles:",getRoad());
+		obj.put("queues", ListRoad());
+		
 		return obj;
+	}
+
+	private JSONArray ListRoad()
+	{
+		//******************************
+		JSONArray carre= new JSONArray();
+		JSONArray vehi= new JSONArray();
+		JSONObject elem=new JSONObject();
+		//*******************************
+		for(Road r:road) {
+			
+		elem.put("road", getRoad());
+		
+		       for(Vehicle v:mapaColas.get(r)){
+			vehi.put(v.getId()); 
+			
+			}
+		elem.put("vehicles", vehi);
+		carre.put(elem);
+		}
+		return carre;
+		
+		
 	}
 
 	public List<Road> getRoad() {

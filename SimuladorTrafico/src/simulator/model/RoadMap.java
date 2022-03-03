@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class RoadMap {
@@ -88,10 +89,30 @@ public class RoadMap {
 	
 	public JSONObject report() {
 		JSONObject obj = new JSONObject();
-		obj.put("junctions:", this.getJunction());
-		obj.put("road:", this.getRoads());
-		obj.put("vehicles:", this.getVehicles());
+		JSONArray road= new JSONArray();
+		JSONArray vehi= new JSONArray();
+		JSONArray junc= new JSONArray();
+		
+		recorrerListas(r,road);
+		recorrerListas(vh,vehi);
+		recorrerListas(junct,junc);
+		
+		obj.put("roads", road);
+		obj.put("vehicles",vehi);
+		obj.put("junctions", junc);
 		return obj;
 	}
+
+	private <T extends SimulatedObject> void recorrerListas(List<T>list,JSONArray arra)
+	{
+		
+		for(T elem:list) {
+			
+			arra.put(elem.report());
+		}
+		
+		
+	}
+
 }
 
