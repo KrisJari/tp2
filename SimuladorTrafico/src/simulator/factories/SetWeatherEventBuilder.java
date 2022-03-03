@@ -16,7 +16,7 @@ public class SetWeatherEventBuilder extends Builder<Event>{
 	private int time;
 	private List<Pair<String, Weather>> info;
 	
-	SetWeatherEventBuilder() {
+	public SetWeatherEventBuilder() {
 		super("set_weather");
 		// TODO Auto-generated constructor stub
 	}

@@ -18,7 +18,7 @@ public class NewVehicleEventBuilder extends Builder<Event>{
 	private List<String> itinerary;
 	
 
-	NewVehicleEventBuilder() {
+	public NewVehicleEventBuilder() {
 		super("new_vehicle");
 		// TODO Auto-generated constructor stub
 	}

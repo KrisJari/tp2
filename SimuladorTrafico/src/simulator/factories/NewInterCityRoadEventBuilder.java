@@ -18,7 +18,7 @@ public class NewInterCityRoadEventBuilder extends Builder<Event>{
 	private int maxSpeed;
 	private Weather weather;
 	
-	NewInterCityRoadEventBuilder(){
+	public NewInterCityRoadEventBuilder(){
 		super("new_inter_city_road");
 	}
 	

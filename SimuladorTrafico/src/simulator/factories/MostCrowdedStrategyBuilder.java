@@ -1,5 +1,7 @@
 package simulator.factories;
 
+import java.util.List;
+
 import org.json.JSONObject;
 
 import simulator.model.LightSwitchingStrategy;
@@ -7,7 +9,7 @@ import simulator.model.MostCrowdedStrategy;
 
 public class MostCrowdedStrategyBuilder extends Builder<LightSwitchingStrategy>{
 
-	MostCrowdedStrategyBuilder() {
+	public MostCrowdedStrategyBuilder() {
 		super("most_crowded_lss");
 		// TODO Auto-generated constructor stub
 	}
@@ -22,5 +24,6 @@ public class MostCrowdedStrategyBuilder extends Builder<LightSwitchingStrategy>{
 			crow = new MostCrowdedStrategy(1);
 		return crow;
 	}
-
+	
+	
 }

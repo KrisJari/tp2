@@ -1,4 +1,5 @@
 package simulator.factories;
+import java.util.List;
 
 import org.json.JSONObject;
 
@@ -7,7 +8,7 @@ import simulator.model.MoveAllStrategy;
 
 public class MoveAllStrategyBuilder extends Builder<DequeuingStrategy>{
 	
-	MoveAllStrategyBuilder(){
+	public MoveAllStrategyBuilder(){
 		super("move_all_dqs");
 	}
 	@Override

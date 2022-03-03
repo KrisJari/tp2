@@ -15,7 +15,7 @@ public class SetContClassEventBuilder extends Builder<Event>{
 	private int time;
 	private List<Pair<String,Integer>> info;
 	
-	SetContClassEventBuilder() {
+	public SetContClassEventBuilder() {
 		super("set_cont_class");
 		// TODO Auto-generated constructor stub
 	}

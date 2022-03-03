@@ -18,7 +18,7 @@ public class NewCityRoadEventBuilder extends Builder<Event> {
 	private int maxSpeed;
 	private Weather weather;
 	
-	NewCityRoadEventBuilder() {
+	public NewCityRoadEventBuilder() {
 		super("new_city_road");
 		// TODO Auto-generated constructor stub
 	}
