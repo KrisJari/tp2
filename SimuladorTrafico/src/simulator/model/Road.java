@@ -17,53 +17,64 @@ public abstract class Road extends SimulatedObject{
 	private int maxSpeed;//velocidad maxima permitida en esa carretera
 	private int alarmContEx;
 	private Weather condAmb;
-	private int ContTotal;
+	private int contTotal;
 	private List<Vehicle> vehicles;
 	private int longRoad;
-	
+	private Orden orden;
 
-	public Road(String id,Junction srcJunct,Junction destJunc,int maxSpeed,int contLimit,int length,Weather weather ) {
+	public Road(String id,Junction srcJunct,Junction destJunct,int maxSpeed,int contLimit,int length,Weather weather ) {
 		super(id);
-		this.srcJunct = srcJunct;
-		this.destJunct = destJunc;
-		this.length = length;
-		this.maxSpeed = maxSpeed;
-		this.alarmContEx = contLimit;
-		this.condAmb = weather;
-		this.condAmb=weather;
-		vehicles = new ArrayList<>();
+		this.vehicles = new ArrayList<>();
 
 
 		if (maxSpeed < 0)
-		throw new IllegalArgumentException( "Max Speed can´t be negative");
-	if (contLimit < 0)
-		throw new IllegalArgumentException( "The contamination limit can´t be negative");
-	if (length < 0)
-		throw new IllegalArgumentException( "The leght can´t be negative");
-	if (srcJunct == null)
-		throw new IllegalArgumentException( "The source road can´t be null");
-	if(destJunc == null)
-		throw new IllegalArgumentException( "The destination road can´t be null");
-	if (weather == null)
-		throw new IllegalArgumentException( "The weather can´t be null");
+			throw new IllegalArgumentException( "Max Speed can´t be negative");
+		else
+			this.maxSpeed = maxSpeed;
+
+		if (contLimit < 0)
+			throw new IllegalArgumentException( "The contamination limit can´t be negative");
+		else
+			this.alarmContEx = contLimit;
+
+		if (length < 0)
+			throw new IllegalArgumentException( "The leght can´t be negative");
+		else
+			this.length = length;
+		if (srcJunct == null)
+			throw new IllegalArgumentException( "The source road can´t be null");
+		else
+			this.srcJunct = srcJunct;
+		if(destJunct == null)
+			throw new IllegalArgumentException( "The destination road can´t be null");
+		else
+			this.destJunct = destJunct;
+
+		if (weather == null)
+			throw new IllegalArgumentException( "The weather can´t be null");
+		else
+			this.condAmb = weather;
 
 
 	}
   
   
 	public class Orden implements Comparator<Vehicle> {
-		@Override
+		
+		public Orden(){
+			
+		}
 		public int compare(Vehicle o1, Vehicle o2) {
 		if(o1.getLocation()<o2.getLocation())
 		    {
-                 return -1;
+                 return 1;
 		    }
 			else if(o1.getLocation()==o2.getLocation())
 			{
 				return 0;
 			}
 			else{
-				return 1;
+				return -1;
 			}
 		}
 	}
@@ -101,7 +112,7 @@ public abstract class Road extends SimulatedObject{
 		if(c < 0)
 			throw new IllegalArgumentException("Road contamination can�t be negative");
 		else
-			c=ContTotal;
+			this.contTotal = c;
 	}
 	
 	
@@ -109,12 +120,14 @@ public abstract class Road extends SimulatedObject{
 
 			reduceTotalContamination();
 			updateSpeedLimit();
-			for(Vehicle v:vehicles)
+			for(Vehicle v:this.vehicles)
 			{
                  v.setSpeed(calculateVehicleSpeed(v));
 				 v.advance(time);
 			}
 			//clases anidadas
+			orden = new Orden();
+			this.vehicles.sort(orden);
 	}
 
 	@Override
@@ -156,10 +169,10 @@ public abstract class Road extends SimulatedObject{
 		this.condAmb = condAmb;
 	}
 	public int getTotalCO2() {
-		return ContTotal;
+		return contTotal;
 	}
 	public void setContTotal(int contTotal) {
-		ContTotal = contTotal;
+		contTotal = contTotal;
 	}
 	public List<Vehicle> getVehicles() {
 		return Collections.unmodifiableList(vehicles);
