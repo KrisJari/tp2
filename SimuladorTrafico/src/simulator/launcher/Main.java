@@ -42,7 +42,7 @@ public class Main {
 	private static String _inFile = null;
 	private static String _outFile = null;
 	private static Factory<Event> _eventsFactory = null;
-	private static Integer ticks;
+	private static Integer _ticks;
 
 	
 	private static void parseArgs(String[] args) {
@@ -113,9 +113,9 @@ public class Main {
 	private static void parseTicksOption(CommandLine line) throws ParseException {
 		String aux = line.getOptionValue("t");
 		if (aux == null)
-			ticks = _timeLimitDefaultValue;//dejamos el valor por default 
+			_ticks = _timeLimitDefaultValue;//dejamos el valor por default 
 		else
-			ticks = Integer.parseInt(aux);
+			_ticks = Integer.parseInt(aux);
 		//parse de la -t
 	}
 
@@ -139,7 +139,7 @@ public class Main {
 		ebs.add( new NewVehicleEventBuilder() );
 		ebs.add( new SetWeatherEventBuilder() );
 		ebs.add( new SetContClassEventBuilder() );
-		Factory<Event> eventsFactory = new BuilderBasedFactory<>(ebs);
+		_eventsFactory = new BuilderBasedFactory<>(ebs);
 
 	}
 
@@ -148,6 +148,9 @@ public class Main {
 		
 		OutputStream out;
 		InputStream in = new FileInputStream(new File(_inFile));
+		TrafficSimulator ts = new TrafficSimulator();
+		Controller controller = new Controller(ts, _eventsFactory);
+		
 		if (_outFile == null) {
 			 out = System.out;
 		}
@@ -155,8 +158,8 @@ public class Main {
 			 out = new FileOutputStream(new File(_outFile));
 		}
 		//
-//		controller.loadEvents(in);
-//		controller.run(ticks,out);
+		controller.loadEvents(in);
+		controller.run(_ticks,out);
 		in.close();
 		out.flush();
 		out.close();
