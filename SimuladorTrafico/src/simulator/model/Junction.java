@@ -84,7 +84,8 @@ public class Junction extends SimulatedObject{
 	
 	protected Road roadTo (Junction j){
 		
-		return this.mapRoad.get(j);
+		List<Road> road2 = j.getRoad();
+		return this.mapRoad.get(road2);
 		
 	}
 
