@@ -9,14 +9,12 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public abstract class Road extends SimulatedObject
-{
+public abstract class Road extends SimulatedObject{
 	
 	private int length;//longitud de carretera
-	Junction srcJunct;//cruce origen
-	Junction destJunc;//cruce destino
+	private Junction srcJunct;//cruce origen
+	private Junction destJunct;//cruce destino
 	private int maxSpeed;//velocidad maxima permitida en esa carretera
-	private int limitVel;//un vehiculo no puede circular a mas de esta velocidad
 	private int alarmContEx;
 	private Weather condAmb;
 	private int ContTotal;
@@ -24,17 +22,15 @@ public abstract class Road extends SimulatedObject
 	private int longRoad;
 	
 
-	Road(String id,Junction srcJunct,Junction destJunc,int maxSpeed,int contLimit,int length,Weather weather ) {
+	public Road(String id,Junction srcJunct,Junction destJunc,int maxSpeed,int contLimit,int length,Weather weather ) {
 		super(id);
 		this.srcJunct = srcJunct;
-		this.destJunc = destJunc;
+		this.destJunct = destJunc;
 		this.length = length;
 		this.maxSpeed = maxSpeed;
-		this.limitVel = maxSpeed;
 		this.alarmContEx = contLimit;
 		this.condAmb = weather;
 		this.condAmb=weather;
-		this.limitVel=maxSpeed;
 		vehicles = new ArrayList<>();
 
 
@@ -126,7 +122,7 @@ public abstract class Road extends SimulatedObject
 		JSONObject obj = new JSONObject();
 		JSONArray vh=new JSONArray();
         obj.put("id:",_id);
-		obj.put("speedlimit:",this.getLimitVel());
+		obj.put("speedlimit:",this.getMaxSpeed());
 		obj.put("weather:",this.getCondAmb());
 		obj.put("co2:",this.getCondAmb());
 		for(Vehicle v:vehicles)
@@ -140,18 +136,13 @@ public abstract class Road extends SimulatedObject
 
 	//getters y setter publicos 
 	public Junction getDestJunc() {
-		return destJunc;
+		return destJunct;
 	}
 	public void setDestJunc(Junction destJunc) {
-		this.destJunc = destJunc;
+		this.destJunct = destJunc;
 	}
 	
-	public int getLimitVel() {
-		return limitVel;
-	}
-	public void setLimitVel(int limitVel) {
-		this.limitVel = limitVel;
-	}
+	
 	public int getAlarmContEx() {
 		return alarmContEx;
 	}

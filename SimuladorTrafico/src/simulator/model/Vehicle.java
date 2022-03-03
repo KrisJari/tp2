@@ -10,7 +10,7 @@ public class Vehicle extends SimulatedObject{
 
 
     private VehicleStatus estado;//estado del vehiculo
-	private int maxspeed;//velocidad m�xima
+	private int maxSpeed;//velocidad m�xima
 	private int contClass;//grado de contaminacion
 	private int contTotal;
     private int locAct;
@@ -22,19 +22,26 @@ public class Vehicle extends SimulatedObject{
     private List<Junction> itinerary;
 	private int current_junct;
 
-	Vehicle(String id,int maxspeed,int contClass,List<Junction> itinerary) {
+	Vehicle(String id,int maxSpeed,int contClass,List<Junction> itinerary) {
 		super(id);
-		if(maxspeed < 0||contClass >= 0||contClass <= 10 || itinerary.size()<=2){
-			throw new IllegalArgumentException(); //CAMBIAR LA EXCEPTION!!!!!!!!!!!!!
-		}
-		this.maxspeed = maxspeed;
-		this.contClass = contClass;
-		this.itinerary = Collections.unmodifiableList(new ArrayList<>(itinerary));
+		if (maxSpeed < 0)
+			throw new IllegalArgumentException("max speed must be a positive number");
+		else
+			this.maxSpeed = maxSpeed;
+		if (contClass >= 0 || contClass <= 10)
+			throw new IllegalArgumentException("class must be a number between 0 and 10");
+		else 
+			this.contClass = contClass;
+		if(itinerary.size() < 2)
+			throw new IllegalArgumentException("itinerary must be at least 2");
+		else 
+			this.itinerary = Collections.unmodifiableList(new ArrayList<>(itinerary));
+		if(velAct == 0) 
+			this.estado = VehicleStatus.PENDING;
+		
 		this.current_junct = 0;
 		this.velAct = 0;
 		this.locAct = 0;
-		if(velAct == 0) 
-			this.estado = VehicleStatus.PENDING;
 		this.distTotal = 0;
 	}
 	
@@ -42,17 +49,17 @@ public class Vehicle extends SimulatedObject{
 	public void setSpeed(int s) 
 	{
 		if(s < 0)
-			throw new IllegalArgumentException("El n�mero es negativo");  //CAMBIAR LA EXCEPTION!!!!!!
+			throw new IllegalArgumentException("speed must be a positive number");  
 		else
-			velAct = Math.min(s, maxspeed);
+			this.velAct = Math.min(s, maxSpeed);
 	}
 	
 	public void setContaminationClass(int c) 
 	{
-		if(contClass >= 0 || contClass <= 10)
-			throw new IllegalArgumentException("El n�mero no est� entre 0 y 10"); //CAMBIAR LA EXCEPTION!!!!!!
+		if(c >= 0 || c <= 10)
+			throw new IllegalArgumentException("class must be a number between 0 and 10"); 
 		else {
-			contClass = c;
+			this.contClass = c;
 		}
 	}
 	
@@ -60,19 +67,19 @@ public class Vehicle extends SimulatedObject{
 	@Override
 	public void advance(int time) {
 	 
-		if (estado.equals(VehicleStatus.TRAVELING))
-		{
-			int locNew=Math.min(locAct+velAct,road.getLongRoad());
-			int loc=locNew-locAct;
-			int c=gradCont*loc;
+		if (this.estado.equals(VehicleStatus.TRAVELING)){
+			int locNew = Math.min(this.locAct + this.velAct, this.road.getLongRoad());
+			int loc = locNew - this.locAct;
+			int c = this.gradCont * loc;
 			
-			c=contTotal;
-			 road.addContamination(c);
+			c = this.contTotal;
+			this.road.addContamination(c);
 
-			if(locNew>=longRoad.getLongRoad())
-		   {
+			if(locNew >= this.longRoad.getLongRoad()){
                  this.road.getDestJunc().enter(this);
-				 estado=VehicleStatus.WAITING;
+				 this.estado = VehicleStatus.WAITING;
+				 this.velAct = 0;
+				 this.current_junct++;
 		    }
 		}
 		
@@ -81,26 +88,26 @@ public class Vehicle extends SimulatedObject{
 	protected void moveToNextRoad() {
 		this.locAct = 0;
 		this.velAct = 0;
-		Junction posAhora = this.itinerary.get(current_junct);
-		Junction posQueAvanza = this.itinerary.get(current_junct + 1);
 		
 		if (!this.estado.equals(VehicleStatus.PENDING) && !this.estado.equals(VehicleStatus.WAITING))
 			throw new IllegalArgumentException("Illegal status");
 		
-		else if (!this.estado.equals(VehicleStatus.PENDING)) {
+		if (!this.estado.equals(VehicleStatus.PENDING)) {
 			this.road.exit(this);
 		}
 		
         if(current_junct+1 == itinerary.size()){
-            estado = VehicleStatus.ARRIVED;
-//			 this.road.exit(this);
-		 }
+           this.estado = VehicleStatus.ARRIVED;
+           this.road = null;
+		}
         else {
+        	Junction posAhora = this.itinerary.get(current_junct);
+    		Junction posQueAvanza = this.itinerary.get(current_junct + 1);
+    		Road nextRoad = posAhora.roadTo(posQueAvanza);
+    		nextRoad.enter(this);
+    		this.road = nextRoad;
 			this.estado = VehicleStatus.TRAVELING;
-		    this.road = posAhora.roadTo(posQueAvanza);
 			this.current_junct++;//indice le sumas más uno por si no estas en 0
-			this.road.enter(this);
-
 		}
 
 	}
