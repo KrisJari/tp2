@@ -13,6 +13,7 @@ import javax.sql.rowset.serial.SQLOutputImpl;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import simulator.model.MapRoad;
 
 public class Junction extends SimulatedObject{
 	
@@ -26,6 +27,7 @@ public class Junction extends SimulatedObject{
 	  private DequeuingStrategy dqStrategy;
 	  private int x;
 	  private int y;
+	  private MapRoad mr;
   
   
   public Junction (String id,LightSwitchingStrategy isStrategy,DequeuingStrategy dqStrategy,int xCoor,int yCoor) {
@@ -87,11 +89,8 @@ public class Junction extends SimulatedObject{
 	   
 	}
 	
-	public Road roadTo (Junction j){
-		
-//		List<Road> road2 = j.getRoad();
-		return this.mapRoad.get(j);
-		
+	public Road roadTo (Junction j){ 
+        	return this.mapRoad.get(j);
 	}
 
 

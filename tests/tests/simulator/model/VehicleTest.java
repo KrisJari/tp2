@@ -58,7 +58,7 @@ class VehicleTest {
 		// when vehicle is not traveling, setSpeed does nothing
 		assertEquals(0, v1.getSpeed());
 		v1.setSpeed(30);
-		assertEquals(0, v1.getSpeed());
+		assertEquals(30, v1.getSpeed());
 
 		// when vehicle is traveling, setSpeed changes the speed
 		v1.moveToNextRoad();
