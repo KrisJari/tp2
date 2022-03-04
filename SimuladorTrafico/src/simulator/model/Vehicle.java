@@ -15,7 +15,6 @@ public class Vehicle extends SimulatedObject{
 	private int contTotal;
     private int locAct;
     private int velAct;//velocidad actual
-    private int gradCont;//grado de contaminación o etiqueta
     private int distTotal;
 	private Road road;
     private Road longRoad;
@@ -24,8 +23,9 @@ public class Vehicle extends SimulatedObject{
 
 	public Vehicle(String id,int maxSpeed,int contClass,List<Junction> itinerary) {
 		super(id);
-		if (maxSpeed < 0)
+		if (maxSpeed <= 0) {
 			throw new IllegalArgumentException("max speed must be a positive number");
+		}
 		else
 			this.maxSpeed = maxSpeed;
 		if (contClass <= 0 || contClass >= 10)
@@ -54,7 +54,7 @@ public class Vehicle extends SimulatedObject{
 			this.velAct = Math.min(s, maxSpeed);
 	}
 	
-	public void setContaminationClass(int c) 
+	public void setContClass(int c) 
 	{
 		if(c <= 0 || c >= 10)
 			throw new IllegalArgumentException("class must be a number between 0 and 10"); 
@@ -70,7 +70,7 @@ public class Vehicle extends SimulatedObject{
 		if (this.estado.equals(VehicleStatus.TRAVELING)){
 			int locNew = Math.min(this.locAct + this.velAct, this.road.getLongRoad());
 			int loc = locNew - this.locAct;
-			int c = this.gradCont * loc;
+			int c = this.contClass * loc;
 			
 			c = this.contTotal;
 			this.road.addContamination(c);
@@ -147,7 +147,7 @@ public class Vehicle extends SimulatedObject{
 	}
 	public int getContClass()
 	{
-		return gradCont;
+		return contClass;
 	}
 	public VehicleStatus getStatus()
 	{
@@ -157,9 +157,7 @@ public class Vehicle extends SimulatedObject{
 	{
 		return locAct;
 	}
-	public void setContClass(int contClass) {
-		this.contClass = contClass;
-	}
+	
 	public List<Junction> getItinerary() {
 		return itinerary;
 	}
