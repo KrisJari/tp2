@@ -28,7 +28,7 @@ public class Vehicle extends SimulatedObject{
 			throw new IllegalArgumentException("max speed must be a positive number");
 		else
 			this.maxSpeed = maxSpeed;
-		if (contClass >= 0 || contClass <= 10)
+		if (contClass <= 0 || contClass >= 10)
 			throw new IllegalArgumentException("class must be a number between 0 and 10");
 		else 
 			this.contClass = contClass;
@@ -56,7 +56,7 @@ public class Vehicle extends SimulatedObject{
 	
 	public void setContaminationClass(int c) 
 	{
-		if(c >= 0 || c <= 10)
+		if(c <= 0 || c >= 10)
 			throw new IllegalArgumentException("class must be a number between 0 and 10"); 
 		else {
 			this.contClass = c;
