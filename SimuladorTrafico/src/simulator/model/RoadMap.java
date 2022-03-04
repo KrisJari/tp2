@@ -18,7 +18,7 @@ public class RoadMap {
 	protected Map<String ,Road> roads;//mapa de carreteras 
 	protected Map<String,Vehicle> vehicles;//mapa de vehiculos 
 	
-	protected RoadMap(){
+	public RoadMap(){
 		this.junct = new ArrayList<Junction>();
 		this.r = new ArrayList<Road>();
 		this.vh = new ArrayList<Vehicle>();
@@ -27,7 +27,7 @@ public class RoadMap {
 		this.vehicles = new TreeMap<String, Vehicle>();
 	}
 	
-	protected void addJunction(Junction j) {
+	public void addJunction(Junction j) {
 		if (this.cruces.containsKey(j.getId()))
 			throw new IllegalArgumentException("Este cruce ya existe");
 		else {
@@ -36,7 +36,7 @@ public class RoadMap {
 		}
 	}
 	
-	protected void addRoad(Road r) {
+	public void addRoad(Road r) {
 		if (this.roads.containsKey(r.getId())) 
 			throw new IllegalArgumentException("Esta carretera ya existe");
 		else {
@@ -45,7 +45,7 @@ public class RoadMap {
 		}
 	}
 	
-	protected void addVehicle(Vehicle v) {
+	public void addVehicle(Vehicle v) {
 		if (this.vehicles.containsKey(v.getId()))
 			throw new IllegalArgumentException("Este vehiculo ya existe");
 		else {
@@ -66,7 +66,7 @@ public class RoadMap {
 		return this.vehicles.get(id);
 	}
 	
-	public List<Junction> getJunction(){
+	public List<Junction> getJunctions(){
 		return Collections.unmodifiableList(junct);	
 	}
 	

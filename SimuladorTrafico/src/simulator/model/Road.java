@@ -15,6 +15,7 @@ public abstract class Road extends SimulatedObject{
 	Junction srcJunct;//cruce origen
 	Junction destJunct;//cruce destino
 	private int maxSpeed;//velocidad maxima permitida en esa carretera
+	private int SpeedLimit;//limite de velocidad actual
 	private int alarmContEx;
 	private Weather condAmb;
 	private int contTotal;
@@ -136,8 +137,8 @@ public abstract class Road extends SimulatedObject{
 		JSONArray vh=new JSONArray();
         obj.put("id:",_id);
 		obj.put("speedlimit:",this.getMaxSpeed());
-		obj.put("weather:",this.getCondAmb());
-		obj.put("co2:",this.getCondAmb());
+		obj.put("weather:",this.getWeather());
+		obj.put("co2:",this.getWeather());
 		for(Vehicle v:vehicles)
 		{
 			vh.put(v.getId());
@@ -162,7 +163,7 @@ public abstract class Road extends SimulatedObject{
 	public void setAlarmContEx(int alarmContEx) {
 		this.alarmContEx = alarmContEx;
 	}
-	public Weather getCondAmb() {
+	public Weather getWeather() {
 		return condAmb;
 	}
 	public void setCondAmb(Weather condAmb) {
@@ -201,6 +202,12 @@ public abstract class Road extends SimulatedObject{
 	public int getLongRoad()
 	{
 		return longRoad;
+	}
+	public int getSpeedLimit() {
+		return SpeedLimit;
+	}
+	public void setSpeedLimit(int speedLimit) {
+		SpeedLimit = speedLimit;
 	}
 	
 	

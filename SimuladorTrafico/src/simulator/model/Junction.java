@@ -28,7 +28,7 @@ public class Junction extends SimulatedObject{
 	  private int y;
   
   
-  Junction (String id,LightSwitchingStrategy isStrategy,DequeuingStrategy dqStrategy,int xCoor,int yCoor) {
+  public Junction (String id,LightSwitchingStrategy isStrategy,DequeuingStrategy dqStrategy,int xCoor,int yCoor) {
 		super(id);
 		this.road = new ArrayList<Road>();
         this.mapRoad=new TreeMap<Junction,Road>();
@@ -87,7 +87,7 @@ public class Junction extends SimulatedObject{
 	   
 	}
 	
-	protected Road roadTo (Junction j){
+	public Road roadTo (Junction j){
 		
 //		List<Road> road2 = j.getRoad();
 		return this.mapRoad.get(j);

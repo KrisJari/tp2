@@ -22,7 +22,7 @@ public class Vehicle extends SimulatedObject{
     private List<Junction> itinerary;
 	private int current_junct;
 
-	Vehicle(String id,int maxSpeed,int contClass,List<Junction> itinerary) {
+	public Vehicle(String id,int maxSpeed,int contClass,List<Junction> itinerary) {
 		super(id);
 		if (maxSpeed < 0)
 			throw new IllegalArgumentException("max speed must be a positive number");
@@ -85,7 +85,7 @@ public class Vehicle extends SimulatedObject{
 		
 	}
 	
-	protected void moveToNextRoad() {
+	public void moveToNextRoad() {
 		this.locAct = 0;
 		this.velAct = 0;
 		

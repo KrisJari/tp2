@@ -26,5 +26,5 @@ public abstract class Event implements Comparable<Event> {
 			return 1;
 	}
 
-	abstract void execute(RoadMap map);//el simulador llama a este evento para ejecutar el evento especifico
+	public abstract void execute(RoadMap map);//el simulador llama a este evento para ejecutar el evento especifico
 }

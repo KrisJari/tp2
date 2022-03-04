@@ -2,7 +2,7 @@ package simulator.model;
 
 public class CityRoad extends Road{
 
-	CityRoad(String id, Junction srcJunct, Junction destJunc, int maxSpeed, int contLimit, int length,
+	public CityRoad(String id, Junction srcJunct, Junction destJunc, int maxSpeed, int contLimit, int length,
 			Weather weather) {
 		super(id, srcJunct, destJunc, maxSpeed, contLimit, length, weather);
 		// TODO Auto-generated constructor stub
@@ -12,7 +12,7 @@ public class CityRoad extends Road{
 	void reduceTotalContamination() {
 		// TODO Auto-generated method stub
 		int x = 0;
-		if (this.getCondAmb() == Weather.WINDY || this.getCondAmb() == Weather.STORM)
+		if (this.getWeather() == Weather.WINDY || this.getWeather() == Weather.STORM)
 			x = 10;
 		else
 			x = 2;
@@ -22,13 +22,13 @@ public class CityRoad extends Road{
 	@Override
 	void updateSpeedLimit() {
 		// TODO Auto-generated method stub
-		setMaxSpeed(getMaxSpeed());
+		setSpeedLimit(getMaxSpeed());
 	}
 
 	@Override
 	int calculateVehicleSpeed(Vehicle v) {
 		// TODO Auto-generated method stub
-		v.setSpeed((int)(((11.0 - v.getContClass()) / 11.0) * this.getMaxSpeed()));
+		v.setSpeed((int)(((11.0 - v.getContClass()) / 11.0) * this.getSpeedLimit()));
 		return v.getSpeed();
 	}
 

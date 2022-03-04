@@ -26,7 +26,7 @@ public class TrafficSimulator {
     			this.events.remove(e);
     		}
     	}
-    	for (Junction j : roadMap.getJunction()) {
+    	for (Junction j : roadMap.getJunctions()) {
     		j.advance(time);
     	}
     	for (Road r : roadMap.getRoads()) {
