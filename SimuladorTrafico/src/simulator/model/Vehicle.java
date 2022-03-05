@@ -86,28 +86,25 @@ public class Vehicle extends SimulatedObject{
 	}
 	
 	public void moveToNextRoad() {
-		this.locAct = 0;
-		this.velAct = 0;
-		
-		if (!this.estado.equals(VehicleStatus.PENDING) && !this.estado.equals(VehicleStatus.WAITING))
-			throw new IllegalArgumentException("Illegal status");
-		
-		if (!this.estado.equals(VehicleStatus.PENDING)) {
+		if (this.current_junct > 0 && this.current_junct < this.itinerary.size()) {
 			this.road.exit(this);
+			Road r = this.itinerary.get(current_junct).roadTo(this.itinerary.get(current_junct + 1));
+			this.current_junct++;
+			r.enter(this);
+			this.road = r;
+			this.locAct = 0;
+			this.setStatus(VehicleStatus.TRAVELING);
 		}
-		
-        if(current_junct+1 == itinerary.size()){
-           this.estado = VehicleStatus.ARRIVED;
-           this.road = null;
+		else if (this.current_junct == 0) {
+			Road r = this.itinerary.get(current_junct).roadTo(this.itinerary.get(current_junct + 1));
+			this.current_junct++;
+			this.road = r;
+			this.locAct = 0;
+			this.setStatus(VehicleStatus.TRAVELING);
 		}
-        else {
-        	Junction posAhora = this.itinerary.get(current_junct);
-    		Junction posQueAvanza = this.itinerary.get(current_junct + 1);
-    		Road nextRoad = posAhora.roadTo(posQueAvanza);
-    		nextRoad.enter(this);
-    		this.road = nextRoad;
-			this.estado = VehicleStatus.TRAVELING;
-			this.current_junct++;//indice le sumas más uno por si no estas en 0
+		else {
+			this.road.exit(this);
+			this.setStatus(VehicleStatus.ARRIVED);
 		}
 
 	}
@@ -153,6 +150,11 @@ public class Vehicle extends SimulatedObject{
 	{
 		return estado;
 	}
+	public void setStatus(VehicleStatus estado) {
+		this.estado = estado;
+	}
+
+
 	public int getLocation()
 	{
 		return locAct;

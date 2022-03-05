@@ -22,7 +22,9 @@ public class CityRoad extends Road{
 	@Override
 	void updateSpeedLimit() {
 		// TODO Auto-generated method stub
-		setSpeedLimit(getMaxSpeed());
+		
+		this.setSpeedLimit(this.getMaxSpeed());
+		
 	}
 
 	@Override

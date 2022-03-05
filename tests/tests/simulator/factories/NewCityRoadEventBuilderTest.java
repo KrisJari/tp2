@@ -53,16 +53,16 @@ class NewCityRoadEventBuilderTest {
 		String inputJson = "{\n" + "	  \"type\" : \"new_city_road\",\n" + "  	  \"data\" : {\n"
 				+ "    	  \"time\"     : 1,\n" + "    	   \"id\"       : \"r1\",\n"
 				+ "           \"src\"      : \"j1\",\n" + "           \"dest\"     : \"j2\",\n"
-				+ "           \"length\"   : 10000,\n" + "           \"co2limit\" : 500,\n"
+				+ "           \"length\"   : 120,\n" + "           \"co2limit\" : 500,\n"
 				+ "           \"maxspeed\" : 120,\n" + "           \"weather\"  : \"SUNNY\"\n" + "   	  }\n"
 				+ "   	}";
 
 		NewCityRoadEventBuilder reb = new NewCityRoadEventBuilder();
 		
 		ts.addEvent(reb.createInstance(new JSONObject(inputJson)));
-		
 		ts.advance();
 		System.out.println(ts.report());
+
 
 		String s = "{\"time\":1,\"state\":{\"roads\":[{\"speedlimit\":120,\"co2\":0,\"weather\":\"SUNNY\",\"vehicles\":[],\"id\":\"r1\"}],\"vehicles\":[],\"junctions\":[{\"green\":\"none\",\"queues\":[],\"id\":\"j1\"},{\"green\":\"r1\",\"queues\":[{\"road\":\"r1\",\"vehicles\":[]}],\"id\":\"j2\"}]}}";
 		

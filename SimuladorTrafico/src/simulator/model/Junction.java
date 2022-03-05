@@ -89,8 +89,7 @@ public class Junction extends SimulatedObject{
 	   
 	}
 	
-	public Road roadTo (Junction j){ 
-		mr = new MapRoad(this.mapRoad);
+	public Road roadTo (Junction j){
 		
         	return this.mapRoad.get(j);
 	}

@@ -120,7 +120,9 @@ public abstract class Road extends SimulatedObject{
 	public void advance(int time) {
 
 			this.reduceTotalContamination();
+			
 			this.updateSpeedLimit();
+			
 			for(Vehicle v:this.vehicles)
 			{
 				if (!v.getStatus().equals(VehicleStatus.ARRIVED)) {
@@ -138,9 +140,9 @@ public abstract class Road extends SimulatedObject{
 		JSONObject obj = new JSONObject();
 		JSONArray vh=new JSONArray();
         obj.put("id:",_id);
-		obj.put("speedlimit:",this.getMaxSpeed());
+		obj.put("speedlimit:",this.getSpeedLimit());
 		obj.put("weather:",this.getWeather());
-		obj.put("co2:",this.getWeather());
+		obj.put("co2:",this.getTotalCO2());
 		for(Vehicle v:vehicles)
 		{
 			vh.put(v.getId());

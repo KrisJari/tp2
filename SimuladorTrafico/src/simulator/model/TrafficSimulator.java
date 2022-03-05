@@ -44,6 +44,7 @@ public class TrafficSimulator {
 //    		r.advance(time);
 //    	}
     	for (int i = 0; i < roadMap.getRoads().size(); i++) {
+    		System.out.println(roadMap.getRoads().size());
     		roadMap.getRoads().get(i).advance(time);
     	}
     }

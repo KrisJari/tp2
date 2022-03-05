@@ -31,8 +31,8 @@ public class RoadMap {
 		if (this.cruces.containsKey(j.getId()))
 			throw new IllegalArgumentException("Este cruce ya existe");
 		else {
-			this.junct.add(j);
 			this.cruces.put(j.getId(), j);
+			this.junct.add(j);
 		}
 	}
 	
