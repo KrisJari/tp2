@@ -27,7 +27,7 @@ public class NewSetContClassEvent extends Event{
         	if (map.getVehicle(con.getFirst()).equals(null))
         		throw new IllegalArgumentException("No se ha encontrado el coche en el mapa");
         else
-        	map.getVehicle(con.getFirst()).setContaminationClass(con.getSecond());
+        	map.getVehicle(con.getFirst()).setContClass(con.getSecond());
         }
     }
     

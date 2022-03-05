@@ -33,8 +33,8 @@ public class NewJunctionEventBuilder extends Builder<Event>{
 		NewJunctionEvent nJuct;
 		this.time = data.getInt("time");
 		this.id = data.getString("id");
-		this.x = data.getJSONArray("coor").getInt(100);
-		this.y = data.getJSONArray("coor").getInt(200);
+		this.x = data.getJSONArray("coor").getInt(0);
+		this.y = data.getJSONArray("coor").getInt(1);
 		this.ls = lssFactory.createInstance(data.getJSONObject("ls_strategy"));
 		this.dq = dqsFactory.createInstance(data.getJSONObject("dq_strategy"));
 		

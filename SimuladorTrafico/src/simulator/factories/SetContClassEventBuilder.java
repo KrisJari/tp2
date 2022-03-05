@@ -30,7 +30,7 @@ public class SetContClassEventBuilder extends Builder<Event>{
 		this.info = new ArrayList<Pair<String,Integer>>();
 		
 		for (int i = 0; i < aux.length(); i++) {
-			info.add(new Pair<String,Integer>(aux.getJSONObject(i).getString("vehicle"), aux.getJSONObject(i).getInt("clas")));
+			info.add(new Pair<String,Integer>(aux.getJSONObject(i).getString("vehicle"), aux.getJSONObject(i).getInt("class")));
 		}
 		
 		sCont = new NewSetContClassEvent(time,info);
