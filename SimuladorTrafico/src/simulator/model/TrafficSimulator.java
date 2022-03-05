@@ -19,18 +19,32 @@ public class TrafficSimulator {
     }
     
     public void advance() {
+    	
+//    	for (Event e : events) {
+//    		if(e.getTime() == this.time) {
+//    			e.execute(roadMap);
+//    			this.events.remove(e);
+//    		}
+//    	}
     	this.time++;
-    	for (Event e : events) {
-    		if(e.getTime() == this.time) {
-    			e.execute(roadMap);
-    			this.events.remove(e);
+
+    	for(int i = 0; i < events.size(); i++) {
+    		if (events.get(i).getTime() == this.time) {
+    			events.get(i).execute(roadMap);
     		}
     	}
-    	for (Junction j : roadMap.getJunctions()) {
-    		j.advance(time);
+    	
+//    	for (Junction j : roadMap.getJunctions()) {
+//    		j.advance(time);
+//    	}
+    	for (int i = 0; i < roadMap.getJunctions().size(); i++) {
+    		roadMap.getJunctions().get(i).advance(time);
     	}
-    	for (Road r : roadMap.getRoads()) {
-    		r.advance(time);
+//    	for (Road r : roadMap.getRoads()) {
+//    		r.advance(time);
+//    	}
+    	for (int i = 0; i < roadMap.getRoads().size(); i++) {
+    		roadMap.getRoads().get(i).advance(time);
     	}
     }
     
@@ -42,8 +56,8 @@ public class TrafficSimulator {
     
     public JSONObject report() {
     	JSONObject obj = new JSONObject();
-    	obj.put("time", time - 1);
-    	obj.put("state", roadMap.report());
+    	obj.put("time", this.time);
+    	obj.put("state", this.roadMap.report());
     	return obj;
     }
 }

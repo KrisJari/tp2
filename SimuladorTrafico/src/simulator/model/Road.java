@@ -119,12 +119,14 @@ public abstract class Road extends SimulatedObject{
 	
 	public void advance(int time) {
 
-			reduceTotalContamination();
-			updateSpeedLimit();
+			this.reduceTotalContamination();
+			this.updateSpeedLimit();
 			for(Vehicle v:this.vehicles)
 			{
-                 v.setSpeed(calculateVehicleSpeed(v));
-				 v.advance(time);
+				if (!v.getStatus().equals(VehicleStatus.ARRIVED)) {
+					v.setSpeed(calculateVehicleSpeed(v));
+					 v.advance(time);
+				}
 			}
 			//clases anidadas
 			orden = new Orden();

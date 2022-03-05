@@ -98,21 +98,24 @@ public class Junction extends SimulatedObject{
 
 	@Override
 	protected void advance(int time) {
-		//necesitamos una lista de vehicle que guarde la estrategia colavehicle.get()nos dice en las colas en que indice
-		//esta el semaforo
-		List <Vehicle> vh = dqStrategy.dequeue(colavehicles.get(indSV));
-        for (Vehicle v : vh) {
-        	v.moveToNextRoad();
-        	if (v.getStatus().equals(VehicleStatus.TRAVELING) || v.getStatus().equals(VehicleStatus.ARRIVED)) {
-        		this.colavehicles.get(indSV).remove(v);
-        	}
-        }
-        
-        int verde = this.indSV;
-        this.indSV = this.isStrategy.chooseNextGreen(road, colavehicles,indSV , ultCamS, time);
-        if (this.indSV != verde)
-        	this.ultCamS = time;
-	
+		List<Vehicle> auxLV = new ArrayList<Vehicle>();
+		for (int i = 0; i < this.road.size(); i++) {
+			if (indSV == i && !(colavehicles.get(i).isEmpty())) {
+				auxLV = dqStrategy.dequeue(colavehicles.get(i));
+				for (int j = 0; j < auxLV.size(); j++) {
+					auxLV.get(j).moveToNextRoad();
+					if (!colavehicles.get(i).isEmpty()) {
+						colavehicles.get(i).remove(j);
+					}
+				}
+			}
+		}
+		
+		int verde = isStrategy.chooseNextGreen(road, colavehicles, indSV, ultCamS, time);
+		if (verde != indSV) {
+			this.indSV = verde;
+			this.ultCamS = time - 1;
+		}
 	}
 
 	@Override

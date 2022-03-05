@@ -8,11 +8,11 @@ public abstract class Event implements Comparable<Event> {
 		if (time < 1)
 			throw new IllegalArgumentException("Time must be positive (" + time + ")");
 		else
-			_time = time;
+			this._time = time;
 	}
 
 	protected int getTime() {
-		return _time;
+		return this._time;
 	}
 
 	@Override
