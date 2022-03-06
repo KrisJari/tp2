@@ -1,4 +1,4 @@
-package tests.simulator.factories;
+package simulator.factories;
 
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;

@@ -1,4 +1,4 @@
-package tests.simulator.model;
+package simulator.model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -7,7 +7,8 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import simulator.model.*;
 
-class NewCityRoadEventTest {
+
+class NewInterCityRoadEventTest {
 
 	@Test
 	void test_1() {
@@ -20,7 +21,7 @@ class NewCityRoadEventTest {
 		map.addJunction(j2);
 
 		// add a new vehicle via an event
-		Event e = new NewCityRoadEvent(10, "r1", "j1", "j2", 1000, 500, 100, Weather.SUNNY);
+		Event e = new NewInterCityRoadEvent(10, "r1", "j1", "j2", 1000, 500, 100, Weather.SUNNY);
 		e.execute(map);
 		
 		// check that the vehicle was added to the map correctly

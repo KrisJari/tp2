@@ -1,4 +1,4 @@
-package tests.simulator.model;
+package simulator.model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -11,16 +11,15 @@ import org.junit.jupiter.api.Test;
 import simulator.misc.Utils;
 import simulator.model.*;
 
-class MostCrowdedStrategyTest {
+class RoundRobinStrategyTest {
 
-	
 	@Test
 	void test_1() {
 		
 		//  junctions
 		Junction j1 = new Junction("j1", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
 		Junction j2 = new Junction("j2", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
-		Junction j3 = new Junction("j3", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
+		Junction j3 = new Junction("j2", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
 
 		//  roads
 		Road r1 = new CityRoad("r1", j1, j2, 100, 500, 1000, Weather.SUNNY);
@@ -46,22 +45,14 @@ class MostCrowdedStrategyTest {
 		q.add( Utils.arrayToList(vs1));
 		q.add( Utils.arrayToList(vs2));
 		
-		MostCrowdedStrategy st = new MostCrowdedStrategy(3);
+		RoundRobinStrategy st = new RoundRobinStrategy(2);
 
 		assertEquals(0, st.chooseNextGreen(rs, q, -1, 0, 11));
 		assertEquals(0, st.chooseNextGreen(rs, q, 0, 11, 12));
-		assertEquals(0, st.chooseNextGreen(rs, q, 0, 11, 13));
-		assertEquals(1, st.chooseNextGreen(rs, q, 0, 11, 14));
-
-		
-		q.get(0).remove(0);
-		assertEquals(1, st.chooseNextGreen(rs, q, -1, 0, 11));
-		q.get(1).remove(0);
-		assertEquals(1, st.chooseNextGreen(rs, q, 1, 11, 12));
-		q.get(1).remove(0);
-		assertEquals(1, st.chooseNextGreen(rs, q, 1, 11, 13));
-		q.get(1).remove(0);
-		assertEquals(0, st.chooseNextGreen(rs, q, 1, 11, 14));
+		assertEquals(1, st.chooseNextGreen(rs, q, 0, 11, 13));
+		assertEquals(1, st.chooseNextGreen(rs, q, 1, 13, 14));
+		assertEquals(0, st.chooseNextGreen(rs, q, 1, 13, 15));
+		assertEquals(0, st.chooseNextGreen(rs, q, 0, 15, 16));
 
 	}
 
