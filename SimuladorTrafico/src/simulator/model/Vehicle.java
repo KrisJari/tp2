@@ -8,7 +8,7 @@ public class Vehicle extends SimulatedObject{
 
 
     private VehicleStatus estado;//status
-	private int maxSpeed;//velocidad m�xima
+	private int maxSpeed;//velocidad maxima
 	private int contClass;//grado de contaminacion
 	private int contTotal;
     private int locAct;
@@ -49,8 +49,10 @@ public class Vehicle extends SimulatedObject{
 	{
 		if(s < 0)
 			throw new IllegalArgumentException("speed must be a positive number");  
+		if (s <= this.maxSpeed)
+			this.velAct = s;
 		else
-			this.velAct = Math.min(s, this.maxSpeed);
+			this.velAct = this.maxSpeed;
 	}
 	
 	void setContClass(int c) 
@@ -67,17 +69,16 @@ public class Vehicle extends SimulatedObject{
 	void advance(int time) {
 	 
 		if (this.estado.equals(VehicleStatus.TRAVELING)){
-			int locNew = Math.min(this.locAct + this.velAct, this.road.getLongRoad());
+			int locNew = Math.min(this.locAct + this.velAct, this.road.getLength());
 			int loc = locNew - this.locAct;
 			int c = this.contClass * loc;
 			
 			this.contTotal += c;
-//			c = this.contTotal;
 			this.road.addContamination(c);
 			this.distTotal += locNew - this.locAct;
 			this.locAct = locNew;
 
-			if(locNew >= this.longRoad.getLongRoad()){
+			if(locNew >= this.longRoad.getLength()){
 				 this.estado = VehicleStatus.WAITING;
 				 this.velAct = 0;
                  this.road.getDestJunct().enter(this);
@@ -88,22 +89,23 @@ public class Vehicle extends SimulatedObject{
 	}
 	
 	void moveToNextRoad() {
-//		
 		this.locAct = 0;
 		this.velAct = 0;
 		
 		if (!this.estado.equals(VehicleStatus.PENDING) && !this.estado.equals(VehicleStatus.WAITING))
 			throw new IllegalArgumentException("Illegal status");
+		
 		if (!this.estado.equals(VehicleStatus.PENDING)) {
 			this.road.exit(this);
 		}
-		if(current_junct+1 == itinerary.size()){
+		if(this.current_junct+1 == this.itinerary.size()){
 			this.estado = VehicleStatus.ARRIVED;
 	        this.road = null;
 		}
 		else {
 			Junction posAhora = this.itinerary.get(current_junct);
     		Junction posQueAvanza = this.itinerary.get(current_junct + 1);
+
     		Road nextRoad = posAhora.roadTo(posQueAvanza);
     		nextRoad.enter(this);
     		this.road = nextRoad;
@@ -116,18 +118,18 @@ public class Vehicle extends SimulatedObject{
 	@Override
 	public JSONObject report() {
 		JSONObject obj=new JSONObject();
-          obj.put("id:",_id);
-		  obj.put("speed:",getSpeed());
-		  obj.put("distance:",getTotalDistance());
-		  obj.put("co2:",getTotalCO2());
-          obj.put("class:",getContClass());
+          obj.put("id",this._id);
+		  obj.put("speed",getSpeed());
+		  obj.put("distance",getTotalDistance());
+		  obj.put("co2",getTotalCO2());
+          obj.put("class",getContClass());
 		  obj.put("status",getStatus());
 		  
 
        if(estado.equals(VehicleStatus.PENDING)||estado.equals(VehicleStatus.ARRIVED))
       {
-          obj.put("road:",this.road.getId());
-		  obj.put("location:",getLocation());
+          obj.put("road",getRoad());
+		  obj.put("location",getLocation());
         }
 
 		return obj;

@@ -1,36 +1,27 @@
 package simulator.model;
 
-import java.sql.SQLOutput;
-import java.util.ArrayList;
-//import java.util.HashMap;
-//import java.util.Iterator;
-//import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
-import javax.sql.rowset.serial.SQLOutputImpl;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import simulator.model.MapRoad;
 
 public class Junction extends SimulatedObject{
 	
 	  private List<Road> road;//mapa de carreteras ENTRANTES
 	  private Map<Junction,Road> mapRoad;//mapa de carreteras SALIENTES 
 	  private List<List<Vehicle>> colavehicles; 
-	  private Map<Road,List<Vehicle>> mapaColas;//para hacer la busqueda 
+	  private Map<Road, List<Vehicle>> mapaColas;//para hacer la busqueda 
 	  private int indSV;//indice del semáforo
 	  private int ultCamS;//ultimo cambio de cambio de semáforo
 	  private LightSwitchingStrategy isStrategy;
 	  private DequeuingStrategy dqStrategy;
 	  private int x;
 	  private int y;
-	  private MapRoad mr;
+
   
   
-  public Junction (String id,LightSwitchingStrategy isStrategy,DequeuingStrategy dqStrategy,int xCoor,int yCoor) {
+	  Junction (String id,LightSwitchingStrategy isStrategy,DequeuingStrategy dqStrategy,int xCoor,int yCoor) {
 		super(id);
 		this.road = new ArrayList<Road>();
         this.mapRoad=new TreeMap<Junction,Road>();
@@ -54,13 +45,17 @@ public class Junction extends SimulatedObject{
         	this.y=yCoor;
 
 		this.ultCamS=1;
+		
 	}
   
   	protected void enter(Vehicle v){
-//       this.mapaColas.get(v.getRoad()).add(v);
-  		Road enteringRoad = v.getRoad();
-  		List<Vehicle> vehicles = mapaColas.get(enteringRoad);
-  		vehicles.add(v);
+  		List<Vehicle> aux = new ArrayList<Vehicle>();
+  		for (Vehicle i : v.getRoad().getVehicles()) {
+  			if(i.getLocation() == i.getRoad().getLength())
+  				aux.add(i);
+  		}
+  		this.mapaColas.put(v.getRoad(), aux);
+  		this.colavehicles.set(this.getRoad().indexOf(v.getRoad()), aux);
 	}
     
 	protected void addOutGoingRoad(Road r){
@@ -75,12 +70,7 @@ public class Junction extends SimulatedObject{
 		   throw new IllegalArgumentException("no es una carretera entrante");
 	   }
 	   this.road.add(r);
-	   //me creo una cola de roads y luego me creo un mapa con esas colas y Road 
-	   //que añade ese mapa al par de Map<Junction ,Road>
-
-	   //Map<Road,ColaR>?==Mapa<Road,List<Vehicle>>
-
-	   //me creo una lista de colas según la página 12 List<List<Vehicles>> pero como es una la declaramos
+	  
 	   List<Vehicle> cola = new ArrayList<Vehicle>();
 	   //añadimos la final de la lista de colas
 	   this.colavehicles.add(cola);
@@ -89,9 +79,10 @@ public class Junction extends SimulatedObject{
 	   
 	}
 	
-	public Road roadTo (Junction j){
+	Road roadTo (Junction j){
+	
+		return mapRoad.get(j);
 		
-        	return this.mapRoad.get(j);
 	}
 
 

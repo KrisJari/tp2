@@ -1,29 +1,24 @@
 package simulator.model;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 public abstract class Road extends SimulatedObject{
 	
-	private int length;//longitud de carretera
+	int length;//longitud de carretera
 	Junction srcJunct;//cruce origen
 	Junction destJunct;//cruce destino
-	private int maxSpeed;//velocidad maxima permitida en esa carretera
-	private int SpeedLimit;//limite de velocidad actual
-	private int alarmContEx;
-	private Weather condAmb;
-	private int contTotal;
-	private List<Vehicle> vehicles;
-	private int longRoad;
-	private Orden orden;
+	int maxSpeed;//velocidad maxima permitida en esa carretera
+	int speedLimit;//limite de velocidad actual
+	int alarmContEx;
+	Weather condAmb;
+	int contTotal;
+	List<Vehicle> vehicles;
+	Orden orden;
 
-	public Road(String id,Junction srcJunct,Junction destJunct,int maxSpeed,int contLimit,int length,Weather weather ) {
+	Road(String id,Junction srcJunct,Junction destJunct,int maxSpeed,int contLimit,int length,Weather weather ) {
 		super(id);
 		this.vehicles = new ArrayList<>();
 
@@ -79,9 +74,11 @@ public abstract class Road extends SimulatedObject{
 			}
 		}
 	}
-	public void enter(Vehicle v){//a�adir vehiculo a la lista
+	
+	
+	void enter(Vehicle v){// vehiculo a la lista
 		if (v.getSpeed() != 0)
-			throw new IllegalArgumentException("Incorrect velocity");
+			throw new IllegalArgumentException("Incorrect speed");
 		else if (v.getLocation() != 0) {
 			throw new IllegalArgumentException("Incorrect location");
 		}
@@ -90,11 +87,12 @@ public abstract class Road extends SimulatedObject{
 		}
 	
 	}
-	public void exit(Vehicle v)
+	void exit(Vehicle v)
 	{
 		this.vehicles.remove(v);
 	}
-	public void setWeather(Weather w) 
+	
+	void setWeather(Weather w) 
 	{
 		if (w == null)
 			throw new IllegalArgumentException("Road Weather can't be null");
@@ -109,7 +107,7 @@ public abstract class Road extends SimulatedObject{
 	abstract int calculateVehicleSpeed(Vehicle v);
 	
 	
-	public void addContamination(int c) {
+	void addContamination(int c) {
 		if(c < 0)
 			throw new IllegalArgumentException("Road contamination can't be negative");
 		else
@@ -117,7 +115,7 @@ public abstract class Road extends SimulatedObject{
 	}
 	
 	
-	public void advance(int time) {
+	void advance(int time) {
 
 			this.reduceTotalContamination();
 			
@@ -139,15 +137,16 @@ public abstract class Road extends SimulatedObject{
 	public JSONObject report() {
 		JSONObject obj = new JSONObject();
 		JSONArray vh=new JSONArray();
-        obj.put("id:",_id);
+        obj.put("id:",this._id);
 		obj.put("speedlimit:",this.getSpeedLimit());
 		obj.put("weather:",this.getWeather());
 		obj.put("co2:",this.getTotalCO2());
+		obj.put("vehicles:", vh);
 		for(Vehicle v:vehicles)
 		{
 			vh.put(v.getId());
 		}
-		obj.put("vehicles:", vh);
+		
 		
 		return obj;
 	}
@@ -203,15 +202,11 @@ public abstract class Road extends SimulatedObject{
 	public void setMaxSpeed(int maxSpeed) {
 		this.maxSpeed = maxSpeed;
 	}
-	public int getLongRoad()
-	{
-		return longRoad;
-	}
 	public int getSpeedLimit() {
-		return SpeedLimit;
+		return speedLimit;
 	}
 	public void setSpeedLimit(int speedLimit) {
-		SpeedLimit = speedLimit;
+		speedLimit = speedLimit;
 	}
 	
 	

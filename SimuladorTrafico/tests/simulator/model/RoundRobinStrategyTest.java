@@ -48,9 +48,9 @@ class RoundRobinStrategyTest {
 
 		assertEquals(0, st.chooseNextGreen(rs, q, -1, 0, 11));
 		assertEquals(0, st.chooseNextGreen(rs, q, 0, 11, 12));
-		assertEquals(1, st.chooseNextGreen(rs, q, 0, 11, 13));
+		assertEquals(0, st.chooseNextGreen(rs, q, 0, 11, 13));
 		assertEquals(1, st.chooseNextGreen(rs, q, 1, 13, 14));
-		assertEquals(0, st.chooseNextGreen(rs, q, 1, 13, 15));
+		assertEquals(1, st.chooseNextGreen(rs, q, 1, 13, 15));
 		assertEquals(0, st.chooseNextGreen(rs, q, 0, 15, 16));
 
 	}

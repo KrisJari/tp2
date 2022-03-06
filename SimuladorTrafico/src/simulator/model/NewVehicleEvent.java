@@ -5,7 +5,6 @@ import java.util.List;
 
 public class NewVehicleEvent extends Event{
 	
-	private Vehicle vehicle;
 	private String id;
 	private int maxSpeed;
 	private int contClass;
@@ -32,12 +31,14 @@ public class NewVehicleEvent extends Event{
     	List<Junction> jItinerary = new ArrayList<Junction>();
     	for (String i : this.itinerary) {
     		Junction j = map.getJunction(i);
+//    		
     		jItinerary.add(j);
     	}
     	
-    	this.vehicle = new Vehicle(id,maxSpeed,contClass,jItinerary);
-        map.addVehicle(this.vehicle);
-        this.vehicle.moveToNextRoad();
+    	Vehicle v = new Vehicle(id,maxSpeed,contClass,jItinerary);
+    
+        map.addVehicle(v);
+        v.moveToNextRoad();
     }
     
 }

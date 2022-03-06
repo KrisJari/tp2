@@ -2,7 +2,7 @@ package simulator.model;
 
 public class CityRoad extends Road{
 
-	public CityRoad(String id, Junction srcJunct, Junction destJunc, int maxSpeed, int contLimit, int length,
+	CityRoad(String id, Junction srcJunct, Junction destJunc, int maxSpeed, int contLimit, int length,
 			Weather weather) {
 		super(id, srcJunct, destJunc, maxSpeed, contLimit, length, weather);
 		// TODO Auto-generated constructor stub
@@ -23,8 +23,8 @@ public class CityRoad extends Road{
 	void updateSpeedLimit() {
 		// TODO Auto-generated method stub
 		
-		this.setSpeedLimit(this.getMaxSpeed());
-		
+//		this.setSpeedLimit(this.getMaxSpeed());
+		this.speedLimit = this.maxSpeed;
 	}
 
 	@Override

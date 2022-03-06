@@ -30,10 +30,11 @@ public class InterCityRoad extends Road {
 	protected void updateSpeedLimit() {
 		// TODO Auto-generated method stub
 		if (getTotalCO2() > getContLimit()) {
-			setSpeedLimit((int)(getMaxSpeed() * 0.5));
+			this.speedLimit = (int)(getMaxSpeed() * 0.5);
 		}
 		else
-			setSpeedLimit(getMaxSpeed());
+			this.speedLimit = this.maxSpeed;
+
 	}
 
 	@Override

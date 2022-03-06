@@ -27,43 +27,52 @@ public class RoadMap {
 		this.vehicles = new TreeMap<String, Vehicle>();
 	}
 	
-	public void addJunction(Junction j) {
-		if (this.cruces.containsKey(j.getId()))
-			throw new IllegalArgumentException("Este cruce ya existe");
-		else {
-			this.cruces.put(j.getId(), j);
+	void addJunction(Junction j) {
+		
 			this.junct.add(j);
-		}
+
+			this.cruces.put(j.getId(), j);
 	}
 	
-	public void addRoad(Road r) {
+	void addRoad(Road r) {
 		if (this.roads.containsKey(r.getId())) 
 			throw new IllegalArgumentException("Esta carretera ya existe");
 		else {
 			this.r.add(r);
 			this.roads.put(r.getId(), r);
+			
 		}
 	}
 	
-	public void addVehicle(Vehicle v) {
+	void addVehicle(Vehicle v) {
 		if (this.vehicles.containsKey(v.getId()))
-			throw new IllegalArgumentException("Este vehiculo ya existe");
+			throw new IllegalArgumentException("this vehicle already exits");
 		else {
 			this.vh.add(v);
 			this.vehicles.put(v.getId(), v);
 		}
+		
 	}
 	
 	public Junction getJunction(String id) {
-		return this.cruces.get(id);
+		if(this.cruces.containsKey(id))
+			return this.cruces.get(id);
+		else 
+			return null;
 	}
 	
 	public Road getRoad(String id) {
-		return this.roads.get(id);
+		if(this.roads.containsKey(id))
+			return this.roads.get(id);
+		else
+			return null;
 	}
 	
 	public Vehicle getVehicle(String id) {
-		return this.vehicles.get(id);
+		if (this.vehicles.containsKey(id))
+			return this.vehicles.get(id);
+		else
+			return null;
 	}
 	
 	public List<Junction> getJunctions(){
@@ -92,26 +101,22 @@ public class RoadMap {
 		JSONArray road= new JSONArray();
 		JSONArray vehi= new JSONArray();
 		JSONArray junc= new JSONArray();
-		
-		recorrerListas(r,road);
-		recorrerListas(vh,vehi);
-		recorrerListas(junct,junc);
-		
-		obj.put("roads", road);
-		obj.put("vehicles",vehi);
-		obj.put("junctions", junc);
-		return obj;
-	}
-
-	private <T extends SimulatedObject> void recorrerListas(List<T>list,JSONArray arra)
-	{
-		
-		for(T elem:list) {
-			
-			arra.put(elem.report());
+		for (Junction j : junct) {
+			junc.put(j.report());
 		}
+		obj.put("junction", junc);
 		
+		for (Road r : this.r) {
+			road.put(r.report());
+		}
+		obj.put("road", road);
 		
+		for(Vehicle v : this.vh) {
+			vehi.put(v.report());
+		}
+		obj.put("vehicles", vehi);
+		
+		return obj;
 	}
 
 }

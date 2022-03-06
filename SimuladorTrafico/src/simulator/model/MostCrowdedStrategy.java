@@ -12,18 +12,21 @@ public class MostCrowdedStrategy implements LightSwitchingStrategy{
 	}
 	@Override
 	public int chooseNextGreen(List<Road> roads, List<List<Vehicle>> qs, int currGreen, int lastSwitchingTime, int currTime) {
-		List<Vehicle> aux=qs.get(0);
 
 		 if(roads.isEmpty())
 			 return -1;
 		 
-		 if(currGreen==-1){
-            for(int i=0;i<qs.size();i++){
-                if(aux.size()<qs.get(i).size())
-					aux=qs.get(i);
+		 if(currGreen == -1){
+		
+			int queueSize = 0;
+			int pos = 0;
+			for (int i = 0; i < qs.size(); i++) {
+				if (queueSize < qs.get(i).size()) {
+					queueSize = qs.get(i).size();
+					pos = i;
+				}
 			}
-            
-			return qs.indexOf(aux);// te da el valor entero de un indice particular de un objeto 
+			return pos;
 		 }
 		 
 		 if(currTime-lastSwitchingTime<timeSlot)
