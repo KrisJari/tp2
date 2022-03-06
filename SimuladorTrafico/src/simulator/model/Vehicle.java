@@ -145,7 +145,7 @@ public class Vehicle extends SimulatedObject{
 
        if(estado.equals(VehicleStatus.PENDING)||estado.equals(VehicleStatus.ARRIVED))
       {
-          obj.put("road:",getRoad());
+          obj.put("road:",this.road.getId());
 		  obj.put("location:",getLocation());
         }
 
