@@ -161,7 +161,7 @@ public abstract class Road extends SimulatedObject{
 	}
 	
 	
-	public int getAlarmContEx() {
+	public int getContLimit() {
 		return alarmContEx;
 	}
 	public void setAlarmContEx(int alarmContEx) {

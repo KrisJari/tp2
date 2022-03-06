@@ -29,7 +29,7 @@ public class InterCityRoad extends Road {
 	@Override
 	protected void updateSpeedLimit() {
 		// TODO Auto-generated method stub
-		if (getTotalCO2() > getAlarmContEx()) {
+		if (getTotalCO2() > getContLimit()) {
 			setSpeedLimit((int)(getMaxSpeed() * 0.5));
 		}
 		else

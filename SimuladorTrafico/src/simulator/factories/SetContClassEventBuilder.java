@@ -7,7 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import simulator.model.Event;
-import simulator.model.NewSetContClassEvent;
+import simulator.model.SetContClassEvent;
 import simulator.misc.Pair;
 
 public class SetContClassEventBuilder extends Builder<Event>{
@@ -23,7 +23,7 @@ public class SetContClassEventBuilder extends Builder<Event>{
 	@Override
 	protected Event createTheInstance(JSONObject data) {
 		// TODO Auto-generated method stub
-		NewSetContClassEvent sCont;
+		SetContClassEvent sCont;
 		
 		this.time = data.getInt("time");
 		JSONArray aux = data.getJSONArray("info");
@@ -33,7 +33,7 @@ public class SetContClassEventBuilder extends Builder<Event>{
 			info.add(new Pair<String,Integer>(aux.getJSONObject(i).getString("vehicle"), aux.getJSONObject(i).getInt("class")));
 		}
 		
-		sCont = new NewSetContClassEvent(time,info);
+		sCont = new SetContClassEvent(time,info);
 		
 		return sCont;
 	}

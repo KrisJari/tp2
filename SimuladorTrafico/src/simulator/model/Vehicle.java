@@ -88,26 +88,7 @@ public class Vehicle extends SimulatedObject{
 	}
 	
 	void moveToNextRoad() {
-//		if (this.current_junct > 0 && this.current_junct < this.itinerary.size()) {
-//			this.road.exit(this);
-//			Road r = this.itinerary.get(current_junct).roadTo(this.itinerary.get(current_junct + 1));
-//			this.current_junct++;
-//			r.enter(this);
-//			this.road = r;
-//			this.locAct = 0;
-//			this.setStatus(VehicleStatus.TRAVELING);
-//		}
-//		else if (this.current_junct == 0) {
-//			Road r = this.itinerary.get(current_junct).roadTo(this.itinerary.get(current_junct + 1));
-//			this.current_junct++;
-//			this.road = r;
-//			this.locAct = 0;
-//			this.setStatus(VehicleStatus.TRAVELING);
-//		}
-//		else {
-//			this.road.exit(this);
-//			this.setStatus(VehicleStatus.ARRIVED);
-//		}
+//		
 		this.locAct = 0;
 		this.velAct = 0;
 		
