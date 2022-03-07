@@ -33,6 +33,12 @@ public class MostCrowdedStrategy implements LightSwitchingStrategy{
 			 return currGreen;
 		 /////////////////////////////////////////////////////////////////////////////////////////////
 		 
+		 
+		 for (int i = 0; i< qs.size();i++) {
+			 List<Vehicle> l = qs.get((currGreen+1+i)%qs.size())
+		 }
+		 
+		 
 		 ListIterator<List<Vehicle>> it=qs.listIterator();
 		 List<Vehicle> aux1 =qs.get((currGreen+1)%roads.size());
          it.set(aux1);

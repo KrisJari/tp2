@@ -24,9 +24,9 @@ public class Junction extends SimulatedObject{
 	  Junction (String id,LightSwitchingStrategy isStrategy,DequeuingStrategy dqStrategy,int xCoor,int yCoor) {
 		super(id);
 		this.road = new ArrayList<Road>();
-        this.mapRoad=new TreeMap<Junction,Road>();
+        this.mapRoad=new HashMap<Junction,Road>();
 		this.colavehicles= new ArrayList<List<Vehicle>>();
-		this.mapaColas = new TreeMap<Road, List<Vehicle>>();
+		this.mapaColas = new HashMap<Road, List<Vehicle>>();
         if(isStrategy==null)
             throw new IllegalArgumentException("light switching strategy can't be null");
         else 
@@ -59,7 +59,7 @@ public class Junction extends SimulatedObject{
 	}
     
 	protected void addOutGoingRoad(Road r){
-	 if(!r.destJunct.equals(this)&&r.srcJunct.equals(this))
+	 if(!r.srcJunct.equals(this))
 		throw new IllegalArgumentException("no es una carretera saliente");
 	 
 	   this.mapRoad.put(this,r);

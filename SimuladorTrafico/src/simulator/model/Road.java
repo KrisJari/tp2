@@ -51,7 +51,8 @@ public abstract class Road extends SimulatedObject{
 		else
 			this.condAmb = weather;
 
-
+		this.srcJunct.addOutGoingRoad(this);
+		this.destJunct.addIncomingRoad(this);
 	}
   
   
