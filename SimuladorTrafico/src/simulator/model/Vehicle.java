@@ -37,6 +37,7 @@ public class Vehicle extends SimulatedObject{
 		if(velAct == 0) 
 			this.estado = VehicleStatus.PENDING;
 		
+//		System.out.println(this.itinerary.toString());
 		this.current_junct = 0;
 		this.velAct = 0;
 		this.locAct = 0;
@@ -78,7 +79,7 @@ public class Vehicle extends SimulatedObject{
 			this.distTotal += locNew - this.locAct;
 			this.locAct = locNew;
 
-			if(locNew >= this.longRoad.getLength()){
+			if(locNew >= this.road.getLength()){
 				 this.estado = VehicleStatus.WAITING;
 				 this.velAct = 0;
                  this.road.getDestJunct().enter(this);
@@ -91,7 +92,6 @@ public class Vehicle extends SimulatedObject{
 	void moveToNextRoad() {
 		this.locAct = 0;
 		this.velAct = 0;
-		
 		if (!this.estado.equals(VehicleStatus.PENDING) && !this.estado.equals(VehicleStatus.WAITING))
 			throw new IllegalArgumentException("Illegal status");
 		
@@ -104,8 +104,9 @@ public class Vehicle extends SimulatedObject{
 		}
 		else {
 			Junction posAhora = this.itinerary.get(current_junct);
+//			System.out.println(this.itinerary.get(current_junct));
     		Junction posQueAvanza = this.itinerary.get(current_junct + 1);
-
+    		
     		Road nextRoad = posAhora.roadTo(posQueAvanza);
     		nextRoad.enter(this);
     		this.road = nextRoad;
@@ -124,7 +125,6 @@ public class Vehicle extends SimulatedObject{
 		  obj.put("co2",getTotalCO2());
           obj.put("class",getContClass());
 		  obj.put("status",getStatus());
-		  
 
        if(estado.equals(VehicleStatus.PENDING)||estado.equals(VehicleStatus.ARRIVED))
       {
@@ -167,7 +167,7 @@ public class Vehicle extends SimulatedObject{
 	}
 	
 	public List<Junction> getItinerary() {
-		return itinerary;
+		return Collections.unmodifiableList(itinerary);
 	}
 	public void setItinerary(List<Junction> itinerary) {
 		this.itinerary = itinerary;

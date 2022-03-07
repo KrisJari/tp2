@@ -62,26 +62,23 @@ public class Junction extends SimulatedObject{
 	 if(!r.srcJunct.equals(this))
 		throw new IllegalArgumentException("no es una carretera saliente");
 	 
-	   this.mapRoad.put(this,r);
+	   this.mapRoad.put(r.getDestJunct(),r);
+	   
 	}
 	
-	protected void addIncomingRoad(Road r){
+	protected void addIncomingRoad(Road r){ //esto es lo que falla
 	   if(!r.destJunct.equals(this)){
 		   throw new IllegalArgumentException("no es una carretera entrante");
 	   }
 	   this.road.add(r);
-	  
-	   List<Vehicle> cola = new ArrayList<Vehicle>();
-	   //añadimos la final de la lista de colas
-	   this.colavehicles.add(cola);
-	   //el mapa carretera cola es mapaColas pagina 12 se dice que se guarde para hacer la búsqueda
-	   this.mapaColas.put(r, cola);
-	   
+	   List<Vehicle> queue = new ArrayList<Vehicle>();
+	   this.colavehicles.add(queue);
+	   this.mapaColas.put(r,queue);
 	}
 	
 	Road roadTo (Junction j){
-	
-		return mapRoad.get(j);
+//		no tiene a j2. solo tiene j1
+		return this.mapRoad.get(j);
 		
 	}
 

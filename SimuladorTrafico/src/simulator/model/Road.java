@@ -207,7 +207,7 @@ public abstract class Road extends SimulatedObject{
 		return speedLimit;
 	}
 	public void setSpeedLimit(int speedLimit) {
-		speedLimit = speedLimit;
+		this.speedLimit = speedLimit;
 	}
 	
 	
