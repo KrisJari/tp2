@@ -98,23 +98,28 @@ public class RoadMap {
 	
 	public JSONObject report() {
 		JSONObject obj = new JSONObject();
-		JSONArray road= new JSONArray();
-		JSONArray vehi= new JSONArray();
-		JSONArray junc= new JSONArray();
+		JSONArray junc = new JSONArray();
+		JSONArray road = new JSONArray();
+		JSONArray vehi = new JSONArray();
+		
+		
+		obj.put("junctions", junc);
+//		System.out.println(junct.size());
 		for (Junction j : junct) {
+			
 			junc.put(j.report());
 		}
-		obj.put("junction", junc);
 		
+		obj.put("road", road);
 		for (Road r : this.r) {
 			road.put(r.report());
 		}
-		obj.put("road", road);
 		
+		obj.put("vehicles", vehi);
 		for(Vehicle v : this.vh) {
 			vehi.put(v.report());
 		}
-		obj.put("vehicles", vehi);
+		
 		
 		return obj;
 	}

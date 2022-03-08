@@ -107,38 +107,53 @@ public class Junction extends SimulatedObject{
 	@Override
 	public JSONObject report() {
 		JSONObject obj = new JSONObject();
-		obj.put("id:",_id);
+		obj.put("id",this._id);
+		System.out.println(this.road.size());
 		if ( this.indSV != -1)
-			obj.put("green:", getIndSV());
+			obj.put("green", this.road.get(indSV).getId());
 		else
-			obj.put("green:", "none");
-		obj.put("queues", ListRoad());
+			obj.put("green", "none");
+		
+		JSONArray jQeue = new JSONArray();
+		obj.put("queues", jQeue);
+		
+		for (Road r : this.road) {
+			JSONObject jRoad = new JSONObject();
+			jQeue.put(jRoad);
+			jRoad.put("road", r.getId());
+			
+			JSONArray jVehicle = new JSONArray();
+			jRoad.put("vehicles", jVehicle);
+			for (Vehicle v : this.mapaColas.get(r)) {
+				jVehicle.put(v.getId());
+			}
+		}
 		
 		return obj;
 	}
 
-	private JSONArray ListRoad()
-	{
-		//******************************
-		JSONArray carre= new JSONArray();
-		JSONArray vehi= new JSONArray();
-		JSONObject elem=new JSONObject();
-		//*******************************
-		for(Road r:road) {
-			
-		elem.put("road", getRoad());
-		
-		       for(Vehicle v:mapaColas.get(r)){
-			vehi.put(v.getId()); 
-			
-			}
-		elem.put("vehicles", vehi);
-		carre.put(elem);
-		}
-		return carre;
-		
-		
-	}
+//	private JSONArray ListRoad()
+//	{
+//		//******************************
+//		JSONArray carre= new JSONArray();
+//		JSONArray vehi= new JSONArray();
+//		JSONObject elem=new JSONObject();
+//		//*******************************
+//		for(Road r:road) {
+//			
+//		elem.put("road", getRoad());
+//		
+//		       for(Vehicle v:mapaColas.get(r)){
+//			vehi.put(v.getId()); 
+//			
+//			}
+//		elem.put("vehicles", vehi);
+//		carre.put(elem);
+//		}
+//		return carre;
+//		
+//		
+//	}
 
 	public List<Road> getRoad() {
 		return road;
