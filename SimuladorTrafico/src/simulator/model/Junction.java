@@ -66,7 +66,7 @@ public class Junction extends SimulatedObject{
 	   
 	}
 	
-	protected void addIncomingRoad(Road r){ //esto es lo que falla
+	protected void addIncomingRoad(Road r){ 
 	   if(!r.destJunct.equals(this)){
 		   throw new IllegalArgumentException("no es una carretera entrante");
 	   }
@@ -77,7 +77,6 @@ public class Junction extends SimulatedObject{
 	}
 	
 	Road roadTo (Junction j){
-//		no tiene a j2. solo tiene j1
 		return this.mapRoad.get(j);
 		
 	}

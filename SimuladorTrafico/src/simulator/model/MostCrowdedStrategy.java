@@ -15,8 +15,7 @@ public class MostCrowdedStrategy implements LightSwitchingStrategy{
 
 		 if(roads.isEmpty())
 			 return -1;
-		 
-		 if(currGreen == -1){
+		 else if(currGreen == -1){
 		
 			int queueSize = 0;
 			int pos = 0;
@@ -28,33 +27,26 @@ public class MostCrowdedStrategy implements LightSwitchingStrategy{
 			}
 			return pos;
 		 }
-		 
-		 if(currTime-lastSwitchingTime<timeSlot)
+		 else if(currTime-lastSwitchingTime<timeSlot)
 			 return currGreen;
-		 
-		 
-//		 for (int i = 0; i< qs.size();i++) {
-//			 List<Vehicle> l = qs.get((currGreen+1+i)%qs.size());
-//		 }
-//		 
-		 
-		 ListIterator<List<Vehicle>> it=qs.listIterator();
-		 List<Vehicle> aux1 =qs.get((currGreen+1)%roads.size());
-         it.set(aux1);
-		 int u=currGreen+1;
-		 while(u!=currGreen){
-            List<Vehicle> vh=null;
-			if(it.hasNext()){
-				vh=it.next();
-			}
-			else{
-				it.set(qs.get(0));
+		 else {
+			 int sizeQueue = 0;
+			 int pos = 0;
+			 int find = (currGreen + 1) % qs.size();
+			 
+			 for (int i = 0; i< qs.size();i++) {
+				 if (sizeQueue < qs.get(find).size()) {
+					 sizeQueue = qs.get(find).size();
+					 pos = find;
+				 }
+				 
+				 find++;
+				 if (find == qs.size())
+					 find = 0;
 			 }
-			if(aux1.size()<it.next().size()){
-                aux1=vh;
-			 }
-		  }
-		return qs.indexOf(aux1);
+			 
+			 return pos;
+		 }
 	}
 
 }
