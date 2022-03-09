@@ -96,10 +96,11 @@ public class Junction extends SimulatedObject{
 			}
 		}
 		
-		int verde = isStrategy.chooseNextGreen(road, colavehicles, indSV, ultCamS, time);
-		if (verde != indSV) {
-			this.indSV = verde;
-			this.ultCamS = time - 1;
+		int verde = this.indSV;
+		this.indSV = this.isStrategy.chooseNextGreen(road, colavehicles, indSV, ultCamS, time);
+		
+		if (verde != indSV) {	
+			this.ultCamS = time;
 		}
 	}
 

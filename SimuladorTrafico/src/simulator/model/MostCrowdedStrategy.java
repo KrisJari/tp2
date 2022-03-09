@@ -27,8 +27,11 @@ public class MostCrowdedStrategy implements LightSwitchingStrategy{
 			}
 			return pos;
 		 }
-		 else if(currTime-lastSwitchingTime<timeSlot)
+		 
+		 
+		 else if(currTime-lastSwitchingTime < this.timeSlot)
 			 return currGreen;
+		 
 		 else {
 			 int sizeQueue = 0;
 			 int pos = 0;
