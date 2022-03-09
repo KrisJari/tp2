@@ -11,7 +11,7 @@ public class NewInterCityRoadEvent extends NewRoadEvent {
     @Override
     public void execute(RoadMap map) {
         // TODO Auto-generated method stub
-    	Road interCity = new InterCityRoad(id, map.getJunction(srcJunc), map.getJunction(destJunc), lenght, co2Limit,maxSpeed, weather);
+    	Road interCity = new InterCityRoad(id, map.getJunction(srcJunc), map.getJunction(destJunc), maxSpeed, co2Limit,lenght, weather);
         map.addRoad(interCity);
     }
     

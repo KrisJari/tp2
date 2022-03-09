@@ -40,7 +40,7 @@ class NewVehicleEventTest {
 		Vehicle v = l.get(0);
 		
 		assertEquals("v1", v.getId());
-		assertEquals(50, v.getSpeed());
+		assertEquals(50, v.getMaxSpeed());
 		assertEquals(1, v.getContClass());
 		assertEquals(Arrays.asList(j1,j2), v.getItinerary());
 	}

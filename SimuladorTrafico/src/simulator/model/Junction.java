@@ -45,6 +45,7 @@ public class Junction extends SimulatedObject{
         	this.y=yCoor;
 
 		this.ultCamS=1;
+		this.indSV = -1;
 		
 	}
   
@@ -90,10 +91,8 @@ public class Junction extends SimulatedObject{
 				auxLV = dqStrategy.dequeue(colavehicles.get(i));
 				for (int j = 0; j < auxLV.size(); j++) {
 					auxLV.get(j).moveToNextRoad();
-					if (!colavehicles.get(i).isEmpty()) {
-						colavehicles.get(i).remove(j);
-					}
 				}
+				colavehicles.get(i).removeAll(auxLV);
 			}
 		}
 		

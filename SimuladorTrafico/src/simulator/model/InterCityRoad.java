@@ -23,14 +23,14 @@ public class InterCityRoad extends Road {
 			x = 15;
 		else 
 			x = 20;
-		this.addContamination((int)(((100.0 - x) / 100.0) * this.getTotalCO2()));
+		this.setContTotal(((100 - x)*this.getTotalCO2()/ 100));
 	}
 
 	@Override
 	protected void updateSpeedLimit() {
 		// TODO Auto-generated method stub
 		if (getTotalCO2() > getContLimit()) {
-			this.speedLimit = (int)(getMaxSpeed() * 0.5);
+			this.speedLimit = getMaxSpeed() /2;
 		}
 		else
 			this.speedLimit = this.maxSpeed;

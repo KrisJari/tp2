@@ -16,7 +16,7 @@ public class CityRoad extends Road{
 			x = 10;
 		else
 			x = 2;
-		this.addContamination((int)(((100.0 - x) / 100.0) * this.getTotalCO2()));
+		this.setContTotal(this.getTotalCO2()-x);
 	}
 
 	@Override

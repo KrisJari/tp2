@@ -149,9 +149,12 @@ class VehicleTest {
 		// check that the report/toString is OK
 		String s = "{\"distance\":50,\"road\":\"r1\",\"co2\":50,\"location\":50,\"id\":\"v1\",\"class\":1,\"speed\":50,\"status\":\"TRAVELING\"}";
 		JSONObject jo = new JSONObject(s);
-		
+		System.out.println(s);
 		JSONObject report = v1.report();
-		assertTrue(jo.similar(report));
+		System.out.println(report.toString());
+		JSONObject jo_aux = new JSONObject(jo.toString());
+		JSONObject report_aux = new JSONObject(report.toString());
+		assertTrue(jo_aux.similar(report_aux));
 	}
 
 	@Test

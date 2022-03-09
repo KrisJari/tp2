@@ -26,7 +26,7 @@ public class Vehicle extends SimulatedObject{
 		}
 		else
 			this.maxSpeed = maxSpeed;
-		if (contClass <= 0 || contClass >= 10)
+		if (contClass < 0 || contClass > 10)
 			throw new IllegalArgumentException("class must be a number between 0 and 10");
 		else 
 			this.contClass = contClass;
@@ -124,9 +124,9 @@ public class Vehicle extends SimulatedObject{
 		  obj.put("distance",getTotalDistance());
 		  obj.put("co2",getTotalCO2());
           obj.put("class",getContClass());
-		  obj.put("status",getStatus());
+		  obj.put("status",getStatus().toString());
 
-       if(estado.equals(VehicleStatus.PENDING)||estado.equals(VehicleStatus.ARRIVED))
+       if(!(estado.equals(VehicleStatus.PENDING)||estado.equals(VehicleStatus.ARRIVED)))
       {
           obj.put("road",getRoad());
 		  obj.put("location",getLocation());
@@ -160,6 +160,9 @@ public class Vehicle extends SimulatedObject{
 		this.estado = estado;
 	}
 
+	public int getMaxSpeed() {
+		return maxSpeed;
+	}
 
 	public int getLocation()
 	{

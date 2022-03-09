@@ -28,10 +28,13 @@ public class RoadMap {
 	}
 	
 	void addJunction(Junction j) {
-		
+		if (this.cruces.containsKey(j.getId())) 
+			throw new IllegalArgumentException("Esta carretera ya existe");
+		else {
 			this.junct.add(j);
 
 			this.cruces.put(j.getId(), j);
+		}
 	}
 	
 	void addRoad(Road r) {
@@ -47,10 +50,14 @@ public class RoadMap {
 	void addVehicle(Vehicle v) {
 		if (this.vehicles.containsKey(v.getId()))
 			throw new IllegalArgumentException("this vehicle already exits");
-		else {
+		for (int i = 0; i< v.getItinerary().size()-1;i++) {
+			if(v.getItinerary().get(i).roadTo(v.getItinerary().get(i+1)) == null) {
+				throw new IllegalArgumentException("road does not exit");
+			}
+		}
+
 			this.vh.add(v);
 			this.vehicles.put(v.getId(), v);
-		}
 		
 	}
 	
@@ -110,7 +117,7 @@ public class RoadMap {
 			junc.put(j.report());
 		}
 		
-		obj.put("road", road);
+		obj.put("roads", road);
 		for (Road r : this.r) {
 			road.put(r.report());
 		}

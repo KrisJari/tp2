@@ -86,7 +86,7 @@ public class Main {
 		cmdLineOptions.addOption(
 				Option.builder("o").longOpt("output").hasArg().desc("Output file, where reports are written.").build());
 		cmdLineOptions.addOption(Option.builder("h").longOpt("help").desc("Print this message").build());
-		cmdLineOptions.addOption(Option.builder("t").longOpt("ticks").desc("Ticks to the simulatior's main loop (default value is 10)").build());
+		cmdLineOptions.addOption(Option.builder("t").hasArg().longOpt("ticks").desc("Ticks to the simulatior's main loop (default value is 10)").build());
 		//hemos agregado la nueva option, la -t 
 		return cmdLineOptions;
 	}

@@ -23,7 +23,7 @@ public abstract class Road extends SimulatedObject{
 		this.vehicles = new ArrayList<>();
 
 
-		if (maxSpeed < 0)
+		if (maxSpeed <=0)
 			throw new IllegalArgumentException( "Max Speed can´t be negative");
 		else
 			this.maxSpeed = maxSpeed;
@@ -33,7 +33,7 @@ public abstract class Road extends SimulatedObject{
 		else
 			this.alarmContEx = contLimit;
 
-		if (length < 0)
+		if (length <= 0)
 			throw new IllegalArgumentException( "The leght can´t be negative");
 		else
 			this.length = length;
@@ -53,6 +53,7 @@ public abstract class Road extends SimulatedObject{
 
 		this.srcJunct.addOutGoingRoad(this);
 		this.destJunct.addIncomingRoad(this);
+		this.speedLimit = maxSpeed;
 	}
   
   
@@ -112,7 +113,7 @@ public abstract class Road extends SimulatedObject{
 		if(c < 0)
 			throw new IllegalArgumentException("Road contamination can't be negative");
 		else
-			this.contTotal = c;
+			this.contTotal += c;
 	}
 	
 	
@@ -138,11 +139,11 @@ public abstract class Road extends SimulatedObject{
 	public JSONObject report() {
 		JSONObject obj = new JSONObject();
 		JSONArray vh=new JSONArray();
-        obj.put("id:",this._id);
-		obj.put("speedlimit:",this.getSpeedLimit());
-		obj.put("weather:",this.getWeather());
-		obj.put("co2:",this.getTotalCO2());
-		obj.put("vehicles:", vh);
+        obj.put("id",this._id);
+		obj.put("speedlimit",this.getSpeedLimit());
+		obj.put("weather",this.getWeather().toString());
+		obj.put("co2",this.getTotalCO2());
+		obj.put("vehicles", vh);
 		for(Vehicle v:vehicles)
 		{
 			vh.put(v.getId());
@@ -177,7 +178,11 @@ public abstract class Road extends SimulatedObject{
 		return contTotal;
 	}
 	public void setContTotal(int contTotal) {
+		if(contTotal<0)
+			this.contTotal = 0;
+		else {
 		this.contTotal = contTotal;
+		}
 	}
 	public List<Vehicle> getVehicles() {
 		return Collections.unmodifiableList(vehicles);
