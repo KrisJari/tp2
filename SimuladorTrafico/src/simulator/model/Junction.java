@@ -44,7 +44,7 @@ public class Junction extends SimulatedObject{
         else
         	this.y=yCoor;
 
-		this.ultCamS=1;
+		this.ultCamS = 0;
 		this.indSV = -1;
 		
 	}
@@ -108,7 +108,7 @@ public class Junction extends SimulatedObject{
 	public JSONObject report() {
 		JSONObject obj = new JSONObject();
 		obj.put("id",this._id);
-		System.out.println(this.road.size());
+//		System.out.println(this.road.size());
 		if ( this.indSV != -1)
 			obj.put("green", this.road.get(indSV).getId());
 		else

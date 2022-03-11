@@ -79,11 +79,10 @@ public class Vehicle extends SimulatedObject{
 			this.distTotal += locNew - this.locAct;
 			this.locAct = locNew;
 
-			if(locNew >= this.road.getLength()){
+			if(locNew == this.road.getLength()){
 				 this.estado = VehicleStatus.WAITING;
 				 this.velAct = 0;
                  this.road.getDestJunct().enter(this);
-				 
 		    }
 		}
 		
@@ -154,7 +153,7 @@ public class Vehicle extends SimulatedObject{
 	}
 	public VehicleStatus getStatus()
 	{
-		return estado;
+		return this.estado;
 	}
 	public void setStatus(VehicleStatus estado) {
 		this.estado = estado;

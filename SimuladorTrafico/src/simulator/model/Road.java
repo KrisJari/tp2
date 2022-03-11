@@ -63,7 +63,7 @@ public abstract class Road extends SimulatedObject{
 			
 		}
 		public int compare(Vehicle o1, Vehicle o2) {
-		if(o1.getLocation()<o2.getLocation())
+		if(o1.getLocation() < o2.getLocation())
 		    {
                  return 1;
 		    }

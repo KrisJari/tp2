@@ -30,7 +30,7 @@ public class CityRoad extends Road{
 	@Override
 	int calculateVehicleSpeed(Vehicle v) {
 		// TODO Auto-generated method stub
-		v.setSpeed((int)(((11.0 - v.getContClass()) / 11.0) * this.getSpeedLimit()));
+		v.setSpeed((int)(((11.0 - v.getContClass()) / 11.0) * this.maxSpeed));
 		return v.getSpeed();
 	}
 
