@@ -125,7 +125,7 @@ public abstract class Road extends SimulatedObject{
 			
 			for(Vehicle v:this.vehicles)
 			{
-				if (!v.getStatus().equals(VehicleStatus.ARRIVED)) {
+				if (v.getStatus().equals(VehicleStatus.TRAVELING)) {
 					v.setSpeed(calculateVehicleSpeed(v));
 					 v.advance(time);
 				}

@@ -20,7 +20,7 @@ public class RoundRobinStrategy implements LightSwitchingStrategy {
 		{
            return 0;
 		}
-		else if(currGreen-lastSwitchingTime < timeSlot)
+		else if(currTime-lastSwitchingTime < timeSlot)
 		{
            return currGreen;
 		}
