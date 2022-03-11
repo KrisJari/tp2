@@ -29,12 +29,7 @@ public class TrafficSimulator {
     		events.get(0).execute(roadMap);
     		events.remove(0);
     	}
-    	/*for(int i = 0; i < events.size(); i++) {
-    		
-    		if (events.get(i).getTime() == this.time) {
-    			events.get(i).execute(roadMap);
-    		}
-    	}*/
+    	
     	
     	for (int i = 0; i < roadMap.getJunctions().size(); i++) {
     		if(time == 6) {

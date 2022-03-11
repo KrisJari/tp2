@@ -78,7 +78,7 @@ public abstract class Road extends SimulatedObject{
 	}
 	
 	
-	void enter(Vehicle v){// vehiculo a la lista
+	void enter(Vehicle v){
 		if (v.getSpeed() != 0)
 			throw new IllegalArgumentException("Incorrect speed");
 		else if (v.getLocation() != 0) {
@@ -130,6 +130,7 @@ public abstract class Road extends SimulatedObject{
 					 v.advance(time);
 				}
 			}
+			
 			//clases anidadas
 			orden = new Orden();
 			this.vehicles.sort(orden);

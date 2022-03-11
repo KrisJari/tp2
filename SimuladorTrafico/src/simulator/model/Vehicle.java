@@ -37,7 +37,6 @@ public class Vehicle extends SimulatedObject{
 		if(velAct == 0) 
 			this.estado = VehicleStatus.PENDING;
 		
-//		System.out.println(this.itinerary.toString());
 		this.current_junct = 0;
 		this.velAct = 0;
 		this.locAct = 0;
@@ -103,14 +102,14 @@ public class Vehicle extends SimulatedObject{
 		}
 		else {
 			Junction posAhora = this.itinerary.get(current_junct);
-//			System.out.println(this.itinerary.get(current_junct));
     		Junction posQueAvanza = this.itinerary.get(current_junct + 1);
     		
     		Road nextRoad = posAhora.roadTo(posQueAvanza);
     		nextRoad.enter(this);
     		this.road = nextRoad;
 			this.estado = VehicleStatus.TRAVELING;
-			this.current_junct++;//indice le sumas más uno por si no estas en 0
+			//indice le sumas más uno por si no estas en 0
+			this.current_junct++;
 		}
 		
 	}

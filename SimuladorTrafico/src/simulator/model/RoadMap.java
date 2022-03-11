@@ -111,7 +111,6 @@ public class RoadMap {
 		
 		
 		obj.put("junctions", junc);
-//		System.out.println(junct.size());
 		for (Junction j : junct) {
 			
 			junc.put(j.report());

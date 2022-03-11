@@ -31,7 +31,7 @@ public class NewVehicleEvent extends Event{
     	List<Junction> jItinerary = new ArrayList<Junction>();
     	for (String i : this.itinerary) {
     		Junction j = map.getJunction(i);
-//    		
+
     		jItinerary.add(j);
     	}
     	

@@ -23,7 +23,6 @@ public class CityRoad extends Road{
 	void updateSpeedLimit() {
 		// TODO Auto-generated method stub
 		
-//		this.setSpeedLimit(this.getMaxSpeed());
 		this.speedLimit = this.maxSpeed;
 	}
 
