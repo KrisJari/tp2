@@ -11,6 +11,7 @@ import org.json.JSONTokener;
 import simulator.factories.Factory;
 import simulator.model.Event;
 import simulator.model.TrafficSimulator;
+import simulator.view.MapComponent;
 
 public class Controller {
 	
@@ -60,5 +61,10 @@ public class Controller {
 	
 	public void reset() {
 		ts.reset();
+	}
+
+	public void addObserver(MapComponent mapComponent) {
+		// TODO Auto-generated method stub
+		
 	}
 }

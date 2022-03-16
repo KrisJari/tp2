@@ -77,15 +77,15 @@ public class MapComponent extends JPanel implements TrafficSimObserver {
 		for (Road r : _map.getRoads()) {
 
 			// the road goes from (x1,y1) to (x2,y2)
-			int x1 = r.getSrc().getX();
-			int y1 = r.getSrc().getY();
-			int x2 = r.getDest().getX();
-			int y2 = r.getDest().getY();
+			int x1 = r.getSrcJunct().getX();
+			int y1 = r.getSrcJunct().getY();
+			int x2 = r.getDestJunct().getX();
+			int y2 = r.getDestJunct().getY();
 
 			// choose a color for the arrow depending on the traffic light of the road
 			Color arrowColor = _RED_LIGHT_COLOR;
-			int idx = r.getDest().getGreenLightIndex();
-			if (idx != -1 && r.equals(r.getDest().getInRoads().get(idx))) {
+			int idx = r.getDestJunct().getIndSV();
+			if (idx != -1 && r.equals(r.getDestJunct().getRoad().get(idx))) {
 				arrowColor = _GREEN_LIGHT_COLOR;
 			}
 
@@ -104,7 +104,7 @@ public class MapComponent extends JPanel implements TrafficSimObserver {
 	}
 
 	private void drawVehicles(Graphics g) {
-		for (Vehicle v : _map.getVehilces()) {
+		for (Vehicle v : _map.getVehicles()) {
 			if (v.getStatus() != VehicleStatus.ARRIVED) {
 
 				Road r = v.getRoad();
@@ -113,10 +113,10 @@ public class MapComponent extends JPanel implements TrafficSimObserver {
 				// The calculation below compute the coordinate (vX,vY) of the vehicle on the
 				// corresponding road. It is calculated relatively to the length of the road, and
 				// the location on the vehicle.
-				int x1 = r.getSrc().getX();
-				int y1 = r.getSrc().getY();
-				int x2 = r.getDest().getX();
-				int y2 = r.getDest().getY();
+				int x1 = r.getSrcJunct().getX();
+				int y1 = r.getSrcJunct().getY();
+				int x2 = r.getDestJunct().getX();
+				int y2 = r.getDestJunct().getY();
 
 				double f = ((float)v.getLocation()) / r.getLength();
 				int vX = (int)(x1 + (x2-x1)*f); 
